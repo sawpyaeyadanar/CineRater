@@ -1,11 +1,4 @@
 pool:
-- task: Xcode@5
-  inputs:
-    actions: 'build'
-    packageApp: true
-    signingOption: 'auto'
-    teamId: 'YE28Y3LX8V'
-    destinationPlatformOption: 'iOS'
   vmImage: 'macos-latest'
 
 steps:
@@ -17,3 +10,13 @@ steps:
     configuration: 'Release'
     xcWorkspacePath: '**/*.xcodeproj/project.xcworkspace'
     xcodeVersion: 'default' # Options: 10, 11, 12, 13, 14, default, specifyPath
+
+- task: CopyFiles@2
+  inputs:
+    contents: '**/*.ipa'
+    targetFolder: '$(build.artifactStagingDirectory)'
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
