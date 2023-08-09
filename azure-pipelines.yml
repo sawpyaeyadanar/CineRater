@@ -12,6 +12,7 @@ steps:
     xcodeVersion: 'default' # Options: 10, 11, 12, 13, 14, default, specifyPath
 
 - task: CopyFiles@2
+  displayName: 'Copy Files to: $(build.artifactStagingDirectory)'
   inputs:
     contents: '**/*.ipa'
     targetFolder: '$(build.artifactStagingDirectory)'
