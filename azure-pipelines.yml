@@ -1,4 +1,11 @@
 pool:
+- task: Xcode@5
+  inputs:
+    actions: 'build'
+    packageApp: true
+    signingOption: 'auto'
+    teamId: 'YE28Y3LX8V'
+    destinationPlatformOption: 'iOS'
   vmImage: 'macos-latest'
 
 steps:
