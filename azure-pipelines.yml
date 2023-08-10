@@ -1,3 +1,17 @@
+trigger:
+ branches:
+    include:
+      - main
+
+
+schedules:
+- cron: "* 10 * * *"
+  always: true
+  displayName: Daily midnight build (UTC 16:00)
+  branches:
+    include:
+     - sit
+     
 pool:
   vmImage: 'macos-latest'
 
