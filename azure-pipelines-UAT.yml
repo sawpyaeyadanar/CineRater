@@ -1,19 +1,8 @@
 trigger:
- branches:
-    include:
-      - main
-
-
-schedules:
-
-#- cron: "* 10 * * *" //cron-like schedule pattern
-- cron: "0 15 10 ? * *" #Fire at 10:15 a.m. every day
-  always: true
-  displayName: Daily midnight build (UTC 16:00)
   branches:
     include:
-     - sit
-     
+    - uat
+    
 pool:
   vmImage: 'macos-latest'
 
@@ -37,4 +26,3 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
-

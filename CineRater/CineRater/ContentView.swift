@@ -10,9 +10,13 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         VStack {
-            Image(systemName: "globe")
+            Image(systemName: "arrow")
                 .imageScale(.large)
                 .foregroundColor(.accentColor)
+            Text("This is Feature/task_1 branch")
+            Text("Hello, SwiftUI")
+            Text("check sit is trigger when main is update")
+            Text("check main pipeline is trgger when UAT branch is updated")
             Text("Hello, SIT env for internal testing")
         }
         .padding()
