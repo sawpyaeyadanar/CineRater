@@ -4,6 +4,8 @@ trigger:
       - main
       - uat
       - sit
+    exclude:
+    - feature/*
 
 pool:
   vmImage: 'macos-latest'
