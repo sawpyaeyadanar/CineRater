@@ -15,6 +15,7 @@ struct ContentView: View {
                 .foregroundColor(.accentColor)
             Text("Hello, SwiftUI")
             Text("check sit is trigger when main is update")
+            Text("check main pipeline is trgger when UAT branch is updated")
         }
         .padding()
     }
