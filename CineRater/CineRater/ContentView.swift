@@ -14,6 +14,9 @@ struct ContentView: View {
                 .imageScale(.large)
                 .foregroundColor(.accentColor)
             Text("This is Feature/task_1 branch")
+            Text("Hello, SwiftUI")
+            Text("check sit is trigger when main is update")
+            Text("check main pipeline is trgger when UAT branch is updated")
         }
         .padding()
     }
