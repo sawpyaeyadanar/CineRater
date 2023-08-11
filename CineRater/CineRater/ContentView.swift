@@ -14,7 +14,7 @@ struct ContentView: View {
                 .imageScale(.large)
                 .foregroundColor(.accentColor)
             Text("Hello, SwiftUI")
-            Text("check sit is trigger when main is update")
+            Text("This is Feature/task_1")
         }
         .padding()
     }
