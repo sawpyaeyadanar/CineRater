@@ -1,7 +1,9 @@
 trigger:
-- main
-- uat
-- sit
+ branches:
+    include:
+      - main
+      - uat
+      - sit
 
 pool:
   vmImage: 'macos-latest'
