@@ -8,18 +8,87 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var viewModel = MovieDBViewModel()
+    @State var searchText = ""
+    
     var body: some View {
-        VStack {
-            Image(systemName: "arrow")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("This is Feature/task_1 branch")
-            Text("Hello, SwiftUI")
-            Text("check sit is trigger when main is update")
-            Text("check main pipeline is trgger when UAT branch is updated")
-            Text("Hello, SIT env for internal testing")
+        NavigationStack {
+            
+            ScrollView {
+                if searchText.isEmpty {
+                    if viewModel.trending.isEmpty {
+                        Text("No results")
+                    } else {
+                        HStack {
+                            Text("Trending")
+                                .font(.title)
+                                .foregroundColor(.white)
+                                .fontWeight(.heavy)
+                            Spacer()
+                        }
+                        .padding(.horizontal)
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack {
+                                ForEach(viewModel.trending) { movie in
+                                    TrendingCard(trendingItem: movie)
+                                }
+                            }
+                            .padding(.horizontal)
+                        }
+                    }
+                } else {
+                    LazyVStack {
+                        ForEach(viewModel.searchResults) { item in
+                            HStack {
+                                AsyncImage(url: item.backdropURL) { img in
+                                        img
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 80, height: 120)
+                                } placeholder: {
+                                    ProgressView()
+                                        .frame(width: 80, height: 120)
+                                }
+                                .clipped()
+                                .cornerRadius(10)
+                                VStack(alignment: .leading) {
+                                    Text(item.title ?? "")
+                                        .foregroundColor(.white)
+                                        .font(.headline)
+                                    HStack {
+                                        Image(systemName: "hand.thumbsup.fill")
+                                            .foregroundColor(.yellow)
+                                        Text(String(format: "%.1f", item.vote_average))
+                                        Spacer()
+                                    }
+                                    .foregroundColor(.yellow)
+                                    .fontWeight(.heavy)
+                                }
+                                Spacer()
+                                
+                            }
+                            .padding()
+                            .background(Color(red: 61/255, green: 61/255, blue: 88/255))
+                            .cornerRadius(20)
+                            .padding(.horizontal)
+                        }
+                    }
+                    .padding()
+                }
+            }
+            .background(Color(red: 39/255, green: 40/255, blue: 59/255)
+                .ignoresSafeArea())
         }
-        .padding()
+        .searchable(text: $searchText)
+        .onChange(of: searchText) { newValue in
+            if newValue.count > 2 {
+                viewModel.searchItem(term: newValue)
+            }
+        }
+        .onAppear {
+            viewModel.loadTrending()
+            viewModel.searchItem(term: searchText)
+        }
     }
 }
 
