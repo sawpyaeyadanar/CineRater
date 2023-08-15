@@ -13,7 +13,7 @@ struct ContentView: View {
             Image(systemName: "arrow")
                 .imageScale(.large)
                 .foregroundColor(.accentColor)
-            Text("Hello, UAT Branch")
+            Text("Hello, UAT Branch ")
         }
         .padding()
     }
