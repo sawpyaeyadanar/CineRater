@@ -3,8 +3,15 @@
 # Add steps that install certificates, test, sign, and distribute an app, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/xcode
 
-trigger:
-- sit
+#trigger:
+#- sit
+
+# A pipeline with no CI trigger.
+trigger: none
+
+# Triggered when a new PR is opened or synched.
+pr:
+  - sit
 
 pool:
   vmImage: 'macos-latest'
