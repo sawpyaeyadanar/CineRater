@@ -29,8 +29,15 @@ struct ContentView: View {
                         .padding(.horizontal)
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack {
+                                
                                 ForEach(viewModel.trending) { movie in
-                                    TrendingCard(trendingItem: movie)
+                                    NavigationLink {
+                                        MovieDetailView(movie: movie)
+                                    } label: {
+                                        TrendingCard(trendingItem: movie)
+                                    }
+                                    
+                                    
                                 }
                             }
                             .padding(.horizontal)
@@ -41,7 +48,7 @@ struct ContentView: View {
                         ForEach(viewModel.searchResults) { item in
                             HStack {
                                 AsyncImage(url: item.backdropURL) { img in
-                                        img
+                                    img
                                         .resizable()
                                         .scaledToFit()
                                         .frame(width: 80, height: 120)
