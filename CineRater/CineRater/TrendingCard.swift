@@ -51,10 +51,10 @@ struct TrendingCard: View {
     }
 }
 
-/*
+
 struct TrendingCard_Previews: PreviewProvider {
     static var previews: some View {
         TrendingCard(trendingItem: Movie(adult: false, id: 1, poster_path: "https://image.tmdb.org/t/p/w300//vB8o2p4ETnrfiWEgVxHmHWP9yRl.jpg", title: "Heart of Stone", vote_average: 7.2))
     }
 }
-*/
+
