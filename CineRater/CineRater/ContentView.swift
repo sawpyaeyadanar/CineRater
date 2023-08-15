@@ -13,9 +13,7 @@ struct ContentView: View {
             Image(systemName: "arrow")
                 .imageScale(.large)
                 .foregroundColor(.accentColor)
-            Text("Hello, SwiftUI")
-            Text("check sit is trigger when main is update")
-            Text("check main pipeline is trgger when UAT branch is updated")
+            Text("Hello, UAT Branch")
         }
         .padding()
     }
