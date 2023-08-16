@@ -11,7 +11,21 @@ import SwiftUI
 struct CineRaterApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TabView {
+                ContentView()
+                    .tabItem {
+                        Image(systemName: "popcorn")
+                    }
+                ContentView()
+                    .tabItem {
+                        Image(systemName: "heart.fill")
+                    }
+                ContentView()
+                    .tabItem {
+                        Image(systemName: "bookmark.fill")
+                    }
+            }
+           
         }
     }
 }
