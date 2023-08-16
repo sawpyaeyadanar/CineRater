@@ -13,7 +13,6 @@ struct Movie: Identifiable, Decodable {
     let title: String?
     let vote_average: Float
     let overview: String
-    //let test: String
     
     var backdropURL: URL? {
         let baseURL = URL(string: "https://image.tmdb.org/t/p/w200/")
