@@ -4,7 +4,14 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/xcode
 
 trigger:
-- main
+- none
+
+pr:
+  branches:
+    include:
+    - main
+    exclude:
+      - develop
 
 pool:
   vmImage: 'macos-latest'
