@@ -5,9 +5,12 @@
 
 # A pipeline with no CI trigger
 trigger: none
-
 pr:
-  - develop
+  branches:
+    include:
+    - develop
+    exclude:
+      - main
 
 pool:
   vmImage: 'macos-latest'
