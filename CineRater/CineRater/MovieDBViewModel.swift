@@ -27,7 +27,6 @@ class MovieDBViewModel: ObservableObject {
                 } else {
                     print("error ")
                 }
-                
                
             } catch let DecodingError.dataCorrupted(context) {
                 print(context)
