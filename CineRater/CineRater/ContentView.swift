@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject var viewModel = MovieDBViewModel()
+    @StateObject var viewModel = MovieDiscoverViewModel()
     @State var searchText = ""
     
     var body: some View {
