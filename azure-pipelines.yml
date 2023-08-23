@@ -21,7 +21,7 @@ steps:
 - task: InstallAppleCertificate@2
   displayName: "Install Apple's code signing certificate"
   inputs:
-    certSecureFile: 'Certificates (7peaks).p12'
+    certSecureFile: 'AppleDistribution14Nov (3).p12'
     certPwd: '$(p12Password)'
     keychain: 'temp'
     deleteCert: true
