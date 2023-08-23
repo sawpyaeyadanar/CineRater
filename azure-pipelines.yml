@@ -122,11 +122,11 @@ steps:
     shouldSkipWaitingForProcessing: true
     shouldSkipSubmission: true
 
-- task: PowerShell@2
-  condition: ne(variables.buildConfig, 'Dev PR')
-  displayName: 'LinearB Analysis'
-  inputs:
-    targetType: 'inline'
-    script: |
-      chmod 755 "$(System.DefaultWorkingDirectory)/linearB.sh" &&
-      $(System.DefaultWorkingDirectory)/linearB.sh -a "$(linearB_Config)" -b "$(linearB_API_token)" -c "$(repo_url)"
+# task: PowerShell@2
+#  condition: ne(variables.buildConfig, 'Dev PR')
+#  displayName: 'LinearB Analysis'
+#  inputs:
+#    targetType: 'inline'
+#    script: |
+#      chmod 755 "$(System.DefaultWorkingDirectory)/linearB.sh" &&
+#      $(System.DefaultWorkingDirectory)/linearB.sh -a "$(linearB_Config)" -b "$(linearB_API_token)" -c "$(repo_url)"
