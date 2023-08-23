@@ -10,11 +10,123 @@ pool:
   vmImage: 'macos-latest'
 
 steps:
+- task: InstallSSHKey@0
+  condition: eq(variables.sshKey, true)
+  displayName: "Install SSH Key (Only for Private SPM)"
+  inputs:
+    knownHostsEntry: '$(mySSHHostEntry)'
+    sshPublicKey: '$(mySSHPubKey)'
+    sshKeySecureFile: 'id_rsa'
+    
+- task: InstallAppleCertificate@2
+  displayName: "Install Apple's code signing certificate"
+  inputs:
+    certSecureFile: '$(p12FileName)'
+    certPwd: '$(p12Password)'
+    keychain: 'temp'
+    deleteCert: true
+
+- task: InstallAppleProvisioningProfile@1
+  displayName: "Install Apple's code signing provisioning profile"
+  inputs:
+    provisioningProfileLocation: 'secureFiles'
+    provProfileSecureFile: '$(provisioningProfile)'
+    removeProfile: true
+
+- task: CocoaPods@0
+  condition: eq(variables.cocoapods, true)
+  displayName: "Install third party libraries using cocoapods"
+  inputs:
+    forceRepoUpdate: false
+
+- task: PowerShell@2
+  displayName: 'Update the build number (avgtool must run in the folder where xcodeproj file is located)'
+  inputs:
+    targetType: 'inline'
+    script: |
+      xcrun agvtool next-version -all
+
+- task: PowerShell@2
+  condition: startsWith(variables.buildConfig, 'Dev')
+  displayName: "Install Fastlane & perform unit test & generate code coverage"
+  inputs:
+    targetType: 'inline'
+    script: |
+      brew install fastlane && fastlane unit_test && fastlane generate_code_coverage
+
+- task: SonarCloudPrepare@1
+  condition: startsWith(variables.buildConfig, 'Dev')
+  displayName: "Prepare and configure SonarCloud"
+  inputs:
+    SonarCloud: '$(sonarCloudServiceConnectionName)'
+    organization: '$(sonarCloudOrganizationName)'
+    scannerMode: 'CLI'
+    configMode: 'file'
+
+- task: SonarCloudAnalyze@1
+  condition: startsWith(variables.buildConfig, 'Dev')
+  displayName: "Analyse codebase using SonarCloud"
+
+- task: SonarCloudPublish@1
+  condition: startsWith(variables.buildConfig, 'Dev')
+  displayName: "Publish analysed codebase data using SonarCloud"
+  inputs:
+    pollingTimeoutSec: '300'
+
+- task: PowerShell@2
+  condition: eq(variables.buildUsingExportOptions, true)
+  displayName: 'Build exportOptions.plist file'
+  inputs:
+    targetType: 'inline'
+    script: |
+      /usr/libexec/PlistBuddy -c "Add :method string app-store" $(Pipeline.Workspace)/exportOptions.plist &&
+      /usr/libexec/PlistBuddy -c "Add :provisioningProfiles dict" $(Pipeline.Workspace)/exportOptions.plist &&
+      /usr/libexec/PlistBuddy -c "Add :provisioningProfiles:$(bundleId) string $(APPLE_PROV_PROFILE_UUID)" $(Pipeline.Workspace)/exportOptions.plist &&
+      /usr/libexec/PlistBuddy -c "Add :signingCertificate string $(APPLE_CERTIFICATE_SIGNING_IDENTITY)" $(Pipeline.Workspace)/exportOptions.plist &&
+      /usr/libexec/PlistBuddy -c "Add :signingStyle string manual" $(Pipeline.Workspace)/exportOptions.plist &&
+      /usr/libexec/PlistBuddy -c "Add :teamID string $(teamId)" $(Pipeline.Workspace)/exportOptions.plist
+
 - task: Xcode@5
   inputs:
     actions: 'build'
-    scheme: ''
-    sdk: 'iphoneos'
     configuration: 'Release'
-    xcWorkspacePath: '**/*.xcodeproj/project.xcworkspace'
-    xcodeVersion: 'default' # Options: 8, 9, 10, 11, 12, default, specifyPath
+    sdk: 'iphoneos'
+    scheme: '$(buildScheme)'
+    packageApp: true
+    exportOptions: 'plist'
+    exportOptionsPlist: '$(Pipeline.Workspace)/exportOptions.plist'
+    signingOption: 'default'
+
+- task: CopyFiles@2
+  condition: ne(variables.buildConfig, 'Dev PR')
+  displayName: 'Copy build generated at default directory to artificatory directory'
+  inputs:
+    SourceFolder: '$(system.defaultworkingdirectory)'
+    Contents: '**/*.ipa'
+    TargetFolder: '$(build.artifactStagingDirectory)'
+
+- task: PublishBuildArtifacts@1
+  condition: ne(variables.buildConfig, 'Dev PR')
+  displayName: 'Publish the build artifact'
+
+- task: AppStoreRelease@1
+  condition: ne(variables.buildConfig, 'Dev PR')
+  displayName: 'Upload the the build to testflight'
+  inputs:
+    authType: 'ApiKey'
+    apiKeyId: '$(appStoreAPIKey)'
+    apiKeyIssuerId: '$(appStoreAPIKeyIssuerID)'
+    apitoken: '$(appStoreAPIToken)'
+    releaseTrack: 'TestFlight'
+    appType: 'iOS'
+    shouldSkipWaitingForProcessing: true
+    shouldSkipSubmission: true
+
+- task: PowerShell@2
+  condition: ne(variables.buildConfig, 'Dev PR')
+  displayName: 'LinearB Analysis'
+  inputs:
+    targetType: 'inline'
+    script: |
+      chmod 755 "$(System.DefaultWorkingDirectory)/linearB.sh" &&
+      $(System.DefaultWorkingDirectory)/linearB.sh -a "$(linearB_Config)" -b "$(linearB_API_token)" -c "$(repo_url)"
