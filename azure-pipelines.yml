@@ -44,7 +44,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      xcrun agvtool new-version -all '$(Build.BuildId)
+      xcrun agvtool new-version -all '$(Build.BuildId)'
 
 - task: PowerShell@2
   condition: startsWith(variables.buildConfig, 'Dev')
