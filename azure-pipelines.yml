@@ -10,13 +10,13 @@ pool:
   vmImage: 'macos-latest'
 
 steps:
-- task: InstallSSHKey@0
-  condition: eq(variables.sshKey, true)
-  displayName: "Install SSH Key (Only for Private SPM)"
-  inputs:
-    knownHostsEntry: '$(mySSHHostEntry)'
-    sshPublicKey: '$(mySSHPubKey)'
-    sshKeySecureFile: 'id_rsa'
+#- task: InstallSSHKey@0
+# condition: eq(variables.sshKey, true)
+#  displayName: "Install SSH Key (Only for Private SPM)"
+#  inputs:
+#    knownHostsEntry: '$(mySSHHostEntry)'
+#    sshPublicKey: '$(mySSHPubKey)'
+#    sshKeySecureFile: 'id_rsa'
     
 - task: InstallAppleCertificate@2
   displayName: "Install Apple's code signing certificate"
