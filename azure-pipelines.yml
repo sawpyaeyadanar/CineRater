@@ -90,7 +90,6 @@ steps:
   displayName: 'Build, test, or archive an Xcode workspace on macOS. Optionally package an app.'
   inputs:
     actions: 'build'
-    configuration: 
     sdk: 'iphoneos'
     xcWorkspacePath: 'CineRater/CineRater.xcodeproj'
     packageApp: true
@@ -112,7 +111,7 @@ steps:
   displayName: 'Publish the build artifact'
 
 - task: AppStoreRelease@1
-  condition: ne(variables.buildConfig, 'Dev PR')
+  #condition: ne(variables.buildConfig, 'Dev PR')
   displayName: 'Upload the the build to testflight'
   inputs:
     authType: 'ApiKey'
