@@ -90,13 +90,13 @@ steps:
   displayName: 'Build, test, or archive an Xcode workspace on macOS. Optionally package an app.'
   inputs:
     actions: 'build'
+    configuration: 'Release'
     sdk: 'iphoneos'
     xcWorkspacePath: 'CineRater/CineRater.xcodeproj'
     packageApp: true
     exportOptions: 'plist'
     exportOptionsPlist: '$(Pipeline.Workspace)/exportOptions.plist'
     signingOption: 'default'
-    teamId: 'YE28Y3LX8V'
 
 - task: CopyFiles@2
   condition: ne(variables.buildConfig, 'Dev PR')
