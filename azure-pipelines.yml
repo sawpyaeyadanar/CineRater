@@ -93,10 +93,12 @@ steps:
     configuration: 'Release'
     sdk: 'iphoneos'
     xcWorkspacePath: 'CineRater/CineRater.xcodeproj'
+    scheme: 'CineRater'
     packageApp: true
     exportOptions: 'plist'
     exportOptionsPlist: '$(Pipeline.Workspace)/exportOptions.plist'
-    signingOption: 'default'
+    signingOption: 'auto'
+    teamId: 'YE28Y3LX8V'
 
 - task: CopyFiles@2
   condition: ne(variables.buildConfig, 'Dev PR')
