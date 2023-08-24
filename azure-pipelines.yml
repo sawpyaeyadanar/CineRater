@@ -47,7 +47,7 @@ steps:
 #      xcrun agvtool new-version -all
 
 - task: PowerShell@2
-  condition: startsWith(variables.buildConfig, 'Dev')
+  #condition: startsWith(variables.buildConfig, 'Dev')
   displayName: "Install Fastlane & perform unit test & generate code coverage"
   inputs:
     targetType: 'inline'
@@ -73,18 +73,18 @@ steps:
   #inputs:
    # pollingTimeoutSec: '300'
 
-- task: PowerShell@2
-  condition: eq(variables.buildUsingExportOptions, true)
-  displayName: 'Build exportOptions.plist file'
-  inputs:
-    targetType: 'inline'
-    script: |
-      /usr/libexec/PlistBuddy -c "Add :method string app-store" $(Pipeline.Workspace)/exportOptions.plist &&
-      /usr/libexec/PlistBuddy -c "Add :provisioningProfiles dict" $(Pipeline.Workspace)/exportOptions.plist &&
-      /usr/libexec/PlistBuddy -c "Add :provisioningProfiles:$(bundleId) string $(APPLE_PROV_PROFILE_UUID)" $(Pipeline.Workspace)/exportOptions.plist &&
-      /usr/libexec/PlistBuddy -c "Add :signingCertificate string $(APPLE_CERTIFICATE_SIGNING_IDENTITY)" $(Pipeline.Workspace)/exportOptions.plist &&
-      /usr/libexec/PlistBuddy -c "Add :signingStyle string manual" $(Pipeline.Workspace)/exportOptions.plist &&
-      /usr/libexec/PlistBuddy -c "Add :teamID string $(teamId)" $(Pipeline.Workspace)/exportOptions.plist
+#- task: PowerShell@2
+#  condition: eq(variables.buildUsingExportOptions, true)
+#  displayName: 'Build exportOptions.plist file'
+#  inputs:
+#    targetType: 'inline'
+#    script: |
+#      /usr/libexec/PlistBuddy -c "Add :method string app-store" $(Pipeline.Workspace)/exportOptions.plist &&
+#      /usr/libexec/PlistBuddy -c "Add :provisioningProfiles dict" $(Pipeline.Workspace)/exportOptions.plist &&
+#      /usr/libexec/PlistBuddy -c "Add :provisioningProfiles:$(bundleId) string $(APPLE_PROV_PROFILE_UUID)" $(Pipeline.Workspace)/exportOptions.plist &&
+#      /usr/libexec/PlistBuddy -c "Add :signingCertificate string $(APPLE_CERTIFICATE_SIGNING_IDENTITY)" $(Pipeline.Workspace)/exportOptions.plist &&
+#      /usr/libexec/PlistBuddy -c "Add :signingStyle string manual" $(Pipeline.Workspace)/exportOptions.plist &&
+#      /usr/libexec/PlistBuddy -c "Add :teamID string $(teamId)" $(Pipeline.Workspace)/exportOptions.plist
 
 - task: Xcode@5
   displayName: 'Build, test, or archive an Xcode workspace on macOS. Optionally package an app.'
@@ -92,7 +92,7 @@ steps:
     actions: 'build'
     configuration: 'Release'
     sdk: 'iphoneos'
-    xcWorkspacePath: 'CineRater/CineRater.xcodeproj'
+    xcWorkspacePath: 'CineRater.xcodeproj'
     scheme: 'CineRater'
     packageApp: true
     exportOptions: 'plist'
@@ -121,6 +121,7 @@ steps:
     apiKeyIssuerId: '$(appStoreAPIKeyIssuerID)'
     apitoken: '$(appStoreAPIToken)'
     releaseTrack: 'TestFlight'
+    appIdentifier: 'com.7peakssoftware.cinerater.CineRater'
     appType: 'iOS'
     shouldSkipWaitingForProcessing: true
     shouldSkipSubmission: true
