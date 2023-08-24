@@ -91,7 +91,7 @@ steps:
   inputs:
     actions: 'build'
     sdk: 'iphoneos'
-    xcWorkspacePath: 'CineRater/CineRater.xcodeproj'
+    xcWorkspacePath: 'CineRater.xcodeproj'
     packageApp: true
     exportOptions: 'plist'
     exportOptionsPlist: '$(Pipeline.Workspace)/exportOptions.plist'
