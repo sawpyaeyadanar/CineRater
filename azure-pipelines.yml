@@ -95,7 +95,7 @@ steps:
     packageApp: true
     exportOptions: 'plist'
     exportOptionsPlist: '$(Pipeline.Workspace)/exportOptions.plist'
-    signingOption: 'auto'
+    signingOption: 'default'
     teamId: 'YE28Y3LX8V'
 
 - task: CopyFiles@2
