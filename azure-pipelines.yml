@@ -91,17 +91,13 @@ steps:
   inputs:
     actions: 'build'
     sdk: 'iphoneos'
-    packageApp: true
-- task: Xcode@5
-  inputs:
-    actions: 'build'
-    sdk: 'iphoneos'
     xcWorkspacePath: 'CineRater/CineRater.xcodeproj'
     scheme: '$(buildScheme)'
     packageApp: true
     exportOptions: 'plist'
     exportOptionsPlist: '$(Pipeline.Workspace)/exportOptions.plist'
-    signingOption: 'default'
+    signingOption: 'auto'
+    teamId: 'YE28Y3LX8V'
 
 - task: CopyFiles@2
   condition: ne(variables.buildConfig, 'Dev PR')
