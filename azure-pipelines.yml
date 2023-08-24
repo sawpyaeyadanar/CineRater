@@ -90,8 +90,9 @@ steps:
   displayName: 'Build, test, or archive an Xcode workspace on macOS. Optionally package an app.'
   inputs:
     actions: 'build'
+    configuration: 
     sdk: 'iphoneos'
-    xcWorkspacePath: 'CineRater.xcodeproj'
+    xcWorkspacePath: 'CineRater/CineRater.xcodeproj'
     packageApp: true
     exportOptions: 'plist'
     exportOptionsPlist: '$(Pipeline.Workspace)/exportOptions.plist'
