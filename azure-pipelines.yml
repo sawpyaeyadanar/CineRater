@@ -47,7 +47,7 @@ steps:
 #      xcrun agvtool new-version -all
 
 - task: PowerShell@2
-  #condition: startsWith(variables.buildConfig, 'Dev')
+  condition: startsWith(variables.buildConfig, 'Dev')
   displayName: "Install Fastlane & perform unit test & generate code coverage"
   inputs:
     targetType: 'inline'
