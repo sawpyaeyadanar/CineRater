@@ -39,12 +39,12 @@ steps:
   inputs:
     forceRepoUpdate: false
 
-- task: PowerShell@2
-  displayName: 'Update the build number (avgtool must run in the folder where xcodeproj file is located)'
-  inputs:
-    targetType: 'inline'
-    script: |
-      xcrun agvtool new-version -all
+#- task: PowerShell@2
+#  displayName: 'Update the build number (avgtool must run in the folder where xcodeproj file is located)'
+#  inputs:
+#    targetType: 'inline'
+#    script: |
+#      xcrun agvtool new-version -all
 
 - task: PowerShell@2
   condition: startsWith(variables.buildConfig, 'Dev')
