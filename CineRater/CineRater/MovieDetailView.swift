@@ -41,6 +41,7 @@ struct MovieDetailView: View {
                         Text(movie.title ?? "")
                             .font(.title)
                             .fontWeight(.heavy)
+                            .foregroundColor(.white)
                         Spacer()
                         // ratings here
                     }
@@ -53,15 +54,17 @@ struct MovieDetailView: View {
                     
                     HStack {
                         Text("About film")
+                            .foregroundColor(.white)
                         Spacer()
                         // see all button
                     }
                     Text(movie.overview)
                         .lineLimit(2)
-                        .foregroundColor(.secondary)
+                        .foregroundColor(.white)
                     HStack {
                         Text("Cast & Crew")
                             .font(.title3)
+                            .foregroundColor(.white)
                             .fontWeight(.bold)
                         Spacer()
                         // see all button

@@ -22,6 +22,7 @@ struct CastView: View {
                     .frame(width: 100, height: 120)
         }
             Text(cast.name)
+                .foregroundColor(.white)
                 .frame(width: 100)
                 .lineLimit(1)
         }
@@ -30,6 +31,6 @@ struct CastView: View {
 
 struct CastView_Previews: PreviewProvider {
     static var previews: some View {
-        CastView(cast: CastProfile(id: 1, birthday: "", name: "saw", profile_path: "https://image.tmdb.org/t/p/w200/vB8o2p4ETnrfiWEgVxHmHWP9yRl.jpg"))
+        CastView(cast: CastProfile(id: 1, name: "saw", profile_path: "https://image.tmdb.org/t/p/w200/vB8o2p4ETnrfiWEgVxHmHWP9yRl.jpg"))
     }
 }

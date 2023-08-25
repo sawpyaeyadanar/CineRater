@@ -83,6 +83,7 @@ struct ContentView: View {
                     .padding()
                 }
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity) 
             .background(Color(red: 39/255, green: 40/255, blue: 59/255)
                 .ignoresSafeArea())
         }

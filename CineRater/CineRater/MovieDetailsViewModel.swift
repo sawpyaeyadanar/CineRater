@@ -102,7 +102,6 @@ struct MovieCredits: Decodable {
 
 struct CastProfile: Decodable, Identifiable {
     let id: Int
-    let birthday: String
     let name: String
     let profile_path: String
     
