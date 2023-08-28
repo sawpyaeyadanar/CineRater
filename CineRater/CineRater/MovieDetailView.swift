@@ -10,7 +10,7 @@ import SwiftUI
 struct MovieDetailView: View {
     
     @Environment(\.dismiss) var dismiss
-    @StateObject var model = MovieDetailsViewModel()
+    @StateObject var model : MovieDetailsViewModel
     
     let movie: Movie
     var body: some View {
@@ -97,9 +97,11 @@ struct MovieDetailView: View {
         })
         .toolbar(.hidden, for: .navigationBar)
         .task { // adds asynchronous task to perform before this view appear
-            await model.movieCredit(for: movie.id)
+            
+           // await model.movieCredit(for: movie.id)
             await model.loadCastProfiles()
         }
+        
         /*
          // Mark:- replace default navigation back
          .navigationBarTitleDisplayMode(.inline)
@@ -119,8 +121,10 @@ struct MovieDetailView: View {
 }
 
 struct MovieDetailView_Previews: PreviewProvider {
+
     static var previews: some View {
-        MovieDetailView(movie: .mock)
+        MovieDetailView(model: MovieDetailsViewModel(apiService: APIPreviewClient(), id: 1), movie: .mock)
     }
 }
+
 

@@ -12,15 +12,15 @@ struct CineRaterApp: App {
     var body: some Scene {
         WindowGroup {
             TabView {
-                ContentView()
+                ContentView(viewModel: MovieDiscoverViewModel(apiService: APIClient()))
                     .tabItem {
                         Image(systemName: "popcorn")
                     }
-                ContentView()
+                ContentView(viewModel: MovieDiscoverViewModel(apiService: APIClient()))
                     .tabItem {
                         Image(systemName: "heart.fill")
                     }
-                ContentView()
+                ContentView(viewModel: MovieDiscoverViewModel(apiService: APIClient()))
                     .tabItem {
                         Image(systemName: "bookmark.fill")
                     }

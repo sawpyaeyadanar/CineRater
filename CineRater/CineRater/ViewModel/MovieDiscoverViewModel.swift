@@ -6,18 +6,42 @@
 //
 
 import Foundation
+import Combine
 
 @MainActor
 class MovieDiscoverViewModel: ObservableObject {
     
     @Published var trending: [Movie] = []
     @Published var searchResults: [Movie] = []
-    static let apiKey = "98f157f12d9259aa25efa7a968ec355d"
-    static let token = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5OGYxNTdmMTJkOTI1OWFhMjVlZmE3YTk2OGVjMzU1ZCIsInN1YiI6IjY0ZDlhZTczMDAxYmJkMDBjNmM4MGQ2YSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.daAlSowAw3X5oq7svCAdEIp6pQh_muDCzT6R9JUg6OA"
+    @Published var errorMessage: String?
+    private let apiService: APITrendingService
+    private var subscriptions: Set<AnyCancellable> = []
+    var isFetching: Bool?
+    
+    init(apiService: APITrendingService) {
+        
+        self.apiService = apiService
+        loadTrending()
+    }
     
     func loadTrending() {
+        isFetching = true
+        apiService.getTrendingList()
+            .sink { completion in
+                self.isFetching =  false
+                switch completion {
+                case .finished:
+                    print("successfully")
+                case .failure(let error):
+                    print("umable to fetch \(error)")
+                    self.errorMessage = error.message
+                }
+            } receiveValue: { [weak self] trendingResults in
+                self?.trending = trendingResults.results
+            }.store(in: &subscriptions)
+/*
         Task {
-            let url = URL(string: "https://api.themoviedb.org/3/trending/all/day?api_key=\(MovieDiscoverViewModel.apiKey)")!
+            let url = URL(string: "https://api.themoviedb.org/3/trending/all/day?api_key=\(URLManager.apiKey)")!
             do {
                 let (data, response) = try await URLSession.shared.data(from: url)
                 if 200..<300 ~= (response as? HTTPURLResponse)?.statusCode ?? 0 {
@@ -44,13 +68,29 @@ class MovieDiscoverViewModel: ObservableObject {
             }
             
         }
+        */
     }
     
-    func searchItem(term: String) {
+    func searchItem(term: String, pageIndex: Int) {
+        apiService.searchTrending(query: term, pageIndex: pageIndex)
+            .sink { completion in
+                self.isFetching =  false
+                switch completion {
+                case .finished:
+                    print("successfully")
+                case .failure(let error):
+                    print("umable to fetch \(error)")
+                    self.errorMessage = error.message
+                }
+            } receiveValue: { [weak self] trendingResults in
+                self?.searchResults = trendingResults.results
+            }.store(in: &subscriptions)
+        
+       /*
         Task {
             
             if let termEncoded = term.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed) {
-                let urlString = "https://api.themoviedb.org/3/search/movie?api_key=\(MovieDiscoverViewModel.apiKey)&language=en-US&page=1&include_adult=false&query=\(termEncoded)"
+                let urlString = "https://api.themoviedb.org/3/search/movie?api_key=\(URLManager.apiKey)&language=en-US&page=1&include_adult=false&query=\(termEncoded)"
                 if let url = URL(string: urlString) {
                     do {
                         let (data, response) = try await URLSession.shared.data(from: url)
@@ -84,6 +124,7 @@ class MovieDiscoverViewModel: ObservableObject {
                debugPrint("Result not found")
             }
         }
+        */
     }
     
 }
