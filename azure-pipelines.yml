@@ -92,7 +92,7 @@ steps:
     actions: 'build'
     configuration: 'Release'
     sdk: 'iphoneos'
-    xcWorkspacePath: 'CineRater.xcodeproj'
+    xcWorkspacePath: 'CineRater/CineRater.xcodeproj'
     scheme: 'CineRater'
     packageApp: true
     exportOptions: 'plist'
