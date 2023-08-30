@@ -3,10 +3,8 @@
 # Add steps that install certificates, test, sign, and distribute an app, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/xcode
 
-pr:
-  branches:
-    include:
-    - develop
+trigger:
+- main
 
 pool:
   vmImage: 'macos-latest'
