@@ -54,24 +54,24 @@ steps:
     script: |
       brew install fastlane && fastlane unit_test && fastlane generate_code_coverage
 
-#- task: SonarCloudPrepare@1
- # condition: startsWith(variables.buildConfig, 'Dev')
-  #displayName: "Prepare and configure SonarCloud"
-  #inputs:
-   # SonarCloud: '$(sonarCloudServiceConnectionName)'
-    #organization: '$(sonarCloudOrganizationName)'
-    #scannerMode: 'CLI'
-    #configMode: 'file'
+- task: SonarCloudPrepare@1
+  condition: startsWith(variables.buildConfig, 'Dev')
+  displayName: "Prepare and configure SonarCloud"
+  inputs:
+    SonarCloud: '$(sonarCloudServiceConnectionName)'
+    organization: '$(sonarCloudOrganizationName)'
+    scannerMode: 'CLI'
+    configMode: 'file'
 
-#- task: SonarCloudAnalyze@1
- # condition: startsWith(variables.buildConfig, 'Dev')
-  #displayName: "Analyse codebase using SonarCloud"
+- task: SonarCloudAnalyze@1
+  condition: startsWith(variables.buildConfig, 'Dev')
+  displayName: "Analyse codebase using SonarCloud"
 
-#- task: SonarCloudPublish@1
- # condition: startsWith(variables.buildConfig, 'Dev')
-  #displayName: "Publish analysed codebase data using SonarCloud"
-  #inputs:
-   # pollingTimeoutSec: '300'
+- task: SonarCloudPublish@1
+  condition: startsWith(variables.buildConfig, 'Dev')
+  displayName: "Publish analysed codebase data using SonarCloud"
+  inputs:
+    pollingTimeoutSec: '300'
 
 #- task: PowerShell@2
 #  condition: eq(variables.buildUsingExportOptions, true)
