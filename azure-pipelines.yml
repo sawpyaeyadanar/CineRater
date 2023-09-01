@@ -58,11 +58,10 @@ steps:
   condition: startsWith(variables.buildConfig, 'Dev')
   displayName: "Prepare and configure SonarCloud"
   inputs:
-    SonarCloud: '$(sonarCloudServiceConnectionName)'
-    organization: '$(sonarCloudOrganizationName)'
+    SonarCloud: 'CineRater Service'
+    organization: '7PeaksMobileTeam'
     scannerMode: 'CLI'
     configMode: 'file'
-
 - task: SonarCloudAnalyze@1
   condition: startsWith(variables.buildConfig, 'Dev')
   displayName: "Analyse codebase using SonarCloud"
