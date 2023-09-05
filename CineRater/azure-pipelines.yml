@@ -105,23 +105,23 @@ steps:
     Contents: '**/*.ipa'
     TargetFolder: '$(build.artifactStagingDirectory)'
 
-- task: PublishBuildArtifacts@1
+#- task: PublishBuildArtifacts@1
   condition: ne(variables.buildConfig, 'Dev PR')
   displayName: 'Publish the build artifact'
 
-- task: AppStoreRelease@1
+#- task: AppStoreRelease@1
   #condition: ne(variables.buildConfig, 'Dev PR')
-  displayName: 'Upload the the build to testflight'
-  inputs:
-    authType: 'ApiKey'
-    apiKeyId: '$(appStoreAPIKey)'
-    apiKeyIssuerId: '$(appStoreAPIKeyIssuerID)'
-    apitoken: '$(appStoreAPIToken)'
-    releaseTrack: 'TestFlight'
-    appIdentifier: 'com.7peakssoftware.cinerater.CineRater'
-    appType: 'iOS'
-    shouldSkipWaitingForProcessing: true
-    shouldSkipSubmission: true
+  #displayName: 'Upload the the build to testflight'
+  #inputs:
+   # authType: 'ApiKey'
+    #apiKeyId: '$(appStoreAPIKey)'
+    #apiKeyIssuerId: '$(appStoreAPIKeyIssuerID)'
+    #apitoken: '$(appStoreAPIToken)'
+    #releaseTrack: 'TestFlight'
+    #appIdentifier: 'com.7peakssoftware.cinerater.CineRater'
+    #appType: 'iOS'
+    #shouldSkipWaitingForProcessing: true
+    #shouldSkipSubmission: true
 
 # task: PowerShell@2
 #  condition: ne(variables.buildConfig, 'Dev PR')
