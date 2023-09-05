@@ -92,22 +92,21 @@ steps:
     xcWorkspacePath: 'CineRater/CineRater.xcodeproj'
     scheme: 'CineRater'
     packageApp: true
-    exportOptions: 'plist'
-    exportOptionsPlist: '$(Pipeline.Workspace)/exportOptions.plist'
-    signingOption: 'auto'
-    teamId: 'YE28Y3LX8V'
+    #exportOptions: 'plist'
+    #exportOptionsPlist: '$(Pipeline.Workspace)/exportOptions.plist'
+    #signingOption: 'auto'
+    #teamId: 'YE28Y3LX8V'
 
-- task: CopyFiles@2
-  condition: ne(variables.buildConfig, 'Dev PR')
-  displayName: 'Copy build generated at default directory to artificatory directory'
-  inputs:
-    SourceFolder: '$(system.defaultworkingdirectory)'
-    Contents: '**/*.ipa'
-    TargetFolder: '$(build.artifactStagingDirectory)'
+#- task: CopyFiles@2
+#  condition: ne(variables.buildConfig, 'Dev PR')
+#  inputs:
+#    SourceFolder: '$(system.defaultworkingdirectory)'
+#    Contents: '**/*.ipa'
+#    TargetFolder: '$(build.artifactStagingDirectory)'
 
 #- task: PublishBuildArtifacts@1
-  condition: ne(variables.buildConfig, 'Dev PR')
-  displayName: 'Publish the build artifact'
+#  condition: ne(variables.buildConfig, 'Dev PR')
+#  displayName: 'Publish the build artifact'
 
 #- task: AppStoreRelease@1
   #condition: ne(variables.buildConfig, 'Dev PR')
