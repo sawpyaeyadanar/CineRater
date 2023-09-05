@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import SwiftUI
+
 enum APIError: Error {
     case failedRequest
     case notConnectedToInternet
@@ -13,6 +15,7 @@ enum APIError: Error {
     case decodingKeyNotFoundError(key: CodingKey, context: String)
     case decodingValueNotFoundError(key: Any.Type, context: String)
     case decodingTypeMismatchError(key: Any.Type, context: String)
+   
     
     var message: String {
         switch self {
@@ -30,4 +33,27 @@ enum APIError: Error {
             return "Key \(key) not found:, \(context.debugDescription)"
         }
     }
+}
+
+enum LocalError: Error{
+    
+    case saveError
+    case readError
+    
+    var message: String {
+        switch self {
+        case .saveError:
+            return "Could not save it, please reinstall the app"
+        case .readError:
+            return "Could not load it, please reinstall the app"
+        }
+    }
+}
+
+struct ErrorType {
+    let error: LocalError
+    var message: String {
+        error.message
+    }
+    let button = Button("OK", role: .cancel) {}
 }

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var dataStore: DataStore
     @StateObject var viewModel : MovieDiscoverViewModel
     @State var searchText = ""
     
@@ -35,17 +36,23 @@ struct ContentView: View {
                                 HStack {
                                     
                                     ForEach(viewModel.trending) { movie in
-                                        NavigationLink {
-                                           
-                                            MovieDetailView(model:  MovieDetailsViewModel(apiService: APIClient(),
-                                                                                          id: movie.id), movie: movie)
-                                        } label: {
-                                            TrendingCard(trendingItem: movie)
-                                        }
+                                        TrendingCard(trendingItem: movie)
+//                                        NavigationLink {
+//
+//                                            MovieDetailView(model:  MovieDetailsViewModel(apiService: APIClient(),
+//                                                                                          id: movie.id), movie: movie)
+//                                        } label: {
+//                                            TrendingCard(trendingItem: movie)
+//                                        }
+                                            .onTapGesture {
+                                                self.itemTapped(movie)
+                                            }
                                     }
+                                    
                                 }
                                 .padding(.horizontal)
                             }
+                           
                         }
                     } else {
                         LazyVStack {
@@ -93,22 +100,32 @@ struct ContentView: View {
             }
             
         }
-        .searchable(text: $searchText)
+
+        .searchable(text: $searchText,
+                    prompt:  Text("search movie"))
         .onChange(of: searchText) { newValue in
             if newValue.count > 2 {
                 viewModel.searchItem(term: newValue, pageIndex: 1)
             }
         }
         .onAppear {
-           // viewModel.loadTrending()
+            // viewModel.loadTrending()
             viewModel.searchItem(term: searchText, pageIndex: 1)
         }
+        
+        
+        
+    }
+    
+    func itemTapped(_ item: Movie) {
+        print("Item tapped: \(item)")
+        dataStore.addMovie(item)
     }
 }
 
- struct ContentView_Previews: PreviewProvider {
- static var previews: some View {
-     ContentView(viewModel: MovieDiscoverViewModel(apiService: APIPreviewClient()))
- }
- }
- 
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView(viewModel: MovieDiscoverViewModel(apiService: APIPreviewClient()))
+    }
+}
+

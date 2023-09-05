@@ -33,6 +33,9 @@
 		49AEEA322A9CACC9004B8F2C /* person.json in Resources */ = {isa = PBXBuildFile; fileRef = 49AEEA312A9CACC9004B8F2C /* person.json */; };
 		49D83D6B2A94A05B0009E3DD /* MovieDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D83D6A2A94A05B0009E3DD /* MovieDetailsViewModel.swift */; };
 		49D83D6D2A94B7230009E3DD /* CastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D83D6C2A94B7230009E3DD /* CastView.swift */; };
+		49E3048F2AA5B89800FFB3FB /* FileManager+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E3048E2AA5B89800FFB3FB /* FileManager+Extension.swift */; };
+		49E304912AA5C92600FFB3FB /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E304902AA5C92600FFB3FB /* DataStore.swift */; };
+		49E304932AA5DF6800FFB3FB /* FavouriteMovies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E304922AA5DF6800FFB3FB /* FavouriteMovies.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +85,9 @@
 		49AEEA312A9CACC9004B8F2C /* person.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = person.json; sourceTree = "<group>"; };
 		49D83D6A2A94A05B0009E3DD /* MovieDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsViewModel.swift; sourceTree = "<group>"; };
 		49D83D6C2A94B7230009E3DD /* CastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastView.swift; sourceTree = "<group>"; };
+		49E3048E2AA5B89800FFB3FB /* FileManager+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Extension.swift"; sourceTree = "<group>"; };
+		49E304902AA5C92600FFB3FB /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
+		49E304922AA5DF6800FFB3FB /* FavouriteMovies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteMovies.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +142,7 @@
 				493582112A8B75E50008B462 /* MovieDetailView.swift */,
 				49AEEA332A9CAEC8004B8F2C /* ViewModel */,
 				4925ED4A2A837D5A00393AAC /* ContentView.swift */,
+				49E304922AA5DF6800FFB3FB /* FavouriteMovies.swift */,
 				49D83D692A94A03E0009E3DD /* model */,
 				4925ED4C2A837D5B00393AAC /* Assets.xcassets */,
 				4925ED4E2A837D5B00393AAC /* Preview Content */,
@@ -144,6 +151,7 @@
 				49AEEA232A9C5521004B8F2C /* Protocols */,
 				49AEEA222A9C5513004B8F2C /* Networking */,
 				49AEEA1F2A9C4ABC004B8F2C /* Configuration */,
+				49E3048E2AA5B89800FFB3FB /* FileManager+Extension.swift */,
 			);
 			path = CineRater;
 			sourceTree = "<group>";
@@ -218,6 +226,7 @@
 			children = (
 				49D83D6A2A94A05B0009E3DD /* MovieDetailsViewModel.swift */,
 				4935D66D2A8A231200477448 /* MovieDiscoverViewModel.swift */,
+				49E304902AA5C92600FFB3FB /* DataStore.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -366,6 +375,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				49D83D6B2A94A05B0009E3DD /* MovieDetailsViewModel.swift in Sources */,
+				49E3048F2AA5B89800FFB3FB /* FileManager+Extension.swift in Sources */,
 				4935D6702A8A234C00477448 /* TrendingResults.swift in Sources */,
 				4935D66C2A8A226C00477448 /* TrendingCard.swift in Sources */,
 				49AEEA302A9CA93F004B8F2C /* MovieCredits.swift in Sources */,
@@ -376,7 +386,9 @@
 				49AEEA212A9C54CF004B8F2C /* APIPreviewClient.swift in Sources */,
 				49AEEA2C2A9C7071004B8F2C /* HttpMethod.swift in Sources */,
 				496CA99A2A98629100BDB809 /* APIClient.swift in Sources */,
+				49E304932AA5DF6800FFB3FB /* FavouriteMovies.swift in Sources */,
 				4925ED492A837D5A00393AAC /* CineRaterApp.swift in Sources */,
+				49E304912AA5C92600FFB3FB /* DataStore.swift in Sources */,
 				49AEEA1E2A9C4AB1004B8F2C /* Environment.swift in Sources */,
 				496CA9982A98620900BDB809 /* APIService.swift in Sources */,
 				49AEEA282A9C5F9A004B8F2C /* APIEndPoint.swift in Sources */,

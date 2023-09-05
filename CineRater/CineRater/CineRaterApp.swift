@@ -13,10 +13,12 @@ struct CineRaterApp: App {
         WindowGroup {
             TabView {
                 ContentView(viewModel: MovieDiscoverViewModel(apiService: APIClient()))
+                    .environmentObject(DataStore())
                     .tabItem {
                         Image(systemName: "popcorn")
                     }
-                ContentView(viewModel: MovieDiscoverViewModel(apiService: APIClient()))
+                FavouriteMovies()
+                .environmentObject(DataStore())
                     .tabItem {
                         Image(systemName: "heart.fill")
                     }
