@@ -32,7 +32,7 @@ class DataStore: ObservableObject {
             loadMovies()
         }
         
-        print(FileManager.docDirURL.path)
+        //print(FileManager.docDirURL.path)
     }
     
     private func addSubscription() {

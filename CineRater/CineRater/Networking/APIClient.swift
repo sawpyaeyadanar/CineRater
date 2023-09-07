@@ -63,8 +63,8 @@ class APIService {
         request.httpMethod = endpoint.httpMethod.rawValue
         
         
-        debugPrint(urlComponent)
-        debugPrint(request)
+       // debugPrint(urlComponent)
+       // debugPrint(request)
         
          return URLSession.shared.dataTaskPublisher(for: request)
             .tryMap { data, response -> T in

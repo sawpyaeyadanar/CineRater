@@ -14,6 +14,7 @@ struct MovieDetailView: View {
     
     let movie: Movie
     var body: some View {
+        let _ = Self._printChanges()
         ZStack {
             Color(red: 39/255, green: 40/255, blue: 59/255).ignoresSafeArea()
             GeometryReader { geo in

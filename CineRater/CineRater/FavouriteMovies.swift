@@ -8,10 +8,9 @@
 import SwiftUI
 
 struct FavouriteMovies: View {
-    @EnvironmentObject var dataStore: DataStore
-    //@State var movies: [Movie]
+    @EnvironmentObject var dataStore : DataStore
     var body: some View {
-
+        let _ = Self._printChanges()
         NavigationView {
             List {
                 ForEach(dataStore.movies) { movie in
