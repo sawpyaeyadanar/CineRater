@@ -36,7 +36,13 @@ struct ContentView: View {
                                 HStack {
                                     
                                     ForEach(viewModel.trending) { movie in
-                                        TrendingCard(trendingItem: movie)
+                                        TrendingCard(trendingItem: movie, clickFavourite: { isFavourite in
+                                            if isFavourite {
+                                                dataStore.addMovieSubject.send(movie)
+                                            } else {
+                                                dataStore.removeMovieSubject.send(movie)
+                                            }
+                                        })
 //                                        NavigationLink {
 //
 //                                            MovieDetailView(model:  MovieDetailsViewModel(apiService: APIClient(),
@@ -51,6 +57,7 @@ struct ContentView: View {
                                     
                                 }
                                 .padding(.horizontal)
+                                
                             }
                            
                         }
@@ -95,8 +102,9 @@ struct ContentView: View {
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color(red: 39/255, green: 40/255, blue: 59/255)
-                    .ignoresSafeArea())
+                .background(Color(red: 39/255, green: 40/255, blue: 59/255))
+                .clipped()
+                /** use clip to make sure that it doesn't overflow where it doesn't need to*/
             }
             
         }
@@ -119,7 +127,7 @@ struct ContentView: View {
     
     func itemTapped(_ item: Movie) {
         print("Item tapped: \(item)")
-        dataStore.addMovie(item)
+        dataStore.addMovieSubject.send(item)
     }
 }
 

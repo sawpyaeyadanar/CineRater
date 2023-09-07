@@ -15,16 +15,16 @@ struct CineRaterApp: App {
                 ContentView(viewModel: MovieDiscoverViewModel(apiService: APIClient()))
                     .environmentObject(DataStore())
                     .tabItem {
-                        Image(systemName: "popcorn")
+                        Label("Trending", systemImage: "popcorn")
                     }
                 FavouriteMovies()
                 .environmentObject(DataStore())
                     .tabItem {
-                        Image(systemName: "heart.fill")
+                        Label("Favourite", systemImage: "heart.fill")
                     }
                 ContentView(viewModel: MovieDiscoverViewModel(apiService: APIClient()))
                     .tabItem {
-                        Image(systemName: "bookmark.fill")
+                        Label("Bookmark", systemImage: "bookmark.fill")
                     }
             }
            

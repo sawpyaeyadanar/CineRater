@@ -10,6 +10,8 @@ import SwiftUI
 struct TrendingCard: View {
     
     let trendingItem: Movie
+    let clickFavourite: ((_ isFavourite: Bool) -> Void)?
+    @State private var isFavourite: Bool = false
     
     var body: some View {
         ZStack(alignment: .bottom){
@@ -31,8 +33,13 @@ struct TrendingCard: View {
                         .foregroundColor(Color.white)
                         .fontWeight(.heavy)
                     Spacer()
-                    Image(systemName: "heart.fill")
-                        .foregroundColor(.red)
+                    Button {
+                        toggleFavourite()
+                        clickFavourite?(isFavourite)
+                    } label: {
+                        Image(systemName: isFavourite ? "heart.fill" : "heart")
+                            .foregroundColor(.red)
+                    }
                 }
                 HStack {
                     Image(systemName: "hand.thumbsup.fill")
@@ -48,6 +55,10 @@ struct TrendingCard: View {
         }
         .cornerRadius(10)
 
+    }
+    
+    private func toggleFavourite() {
+        isFavourite.toggle()
     }
 }
 

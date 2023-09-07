@@ -6,12 +6,18 @@
 //
 
 import Foundation
-
+import Combine
 //@MainActor
 class DataStore: ObservableObject {
+    
     @Published var movies:[Movie] = []
     @Published var appError: ErrorType? = nil
     @Published var showErrorAlert = false
+    var addMovieSubject = PassthroughSubject<Movie,Never>()
+    var removeMovieByIndexSubject = PassthroughSubject<IndexSet,Never>()
+    var removeMovieSubject = PassthroughSubject<Movie,Never>()
+    var updateMovieSubject = PassthroughSubject<Movie,Never>()
+    var subscriptions = Set<AnyCancellable>()
     @Published var filterText = "" {
         didSet {
             filterMovies()
@@ -19,8 +25,44 @@ class DataStore: ObservableObject {
     }
     
     @Published var filteredMovies: [Movie] = []
+    
     init() {
+        addSubscription()
+        if FileManager().docExist(named: fileName) {
+            loadMovies()
+        }
+        
         print(FileManager.docDirURL.path)
+    }
+    
+    private func addSubscription() {
+        addMovieSubject
+            .sink { [unowned self] movie in
+                guard !movies.contains(where: { $0.id == movie.id}) else {
+                    debugPrint("Already Saved")
+                    return
+                }
+                addMovie(movie)
+            }
+            .store(in:&subscriptions)
+        
+        updateMovieSubject
+            .sink { [unowned self] movie in
+                updateMovie(movie)
+            }
+            .store(in: &subscriptions)
+        
+        removeMovieByIndexSubject
+            .sink { [unowned self] indexSet in
+                deleteMovie(at: indexSet)
+            }
+            .store(in: &subscriptions)
+        
+        removeMovieSubject
+            .sink { [unowned self] movie in
+               deleteTodo(movie)
+            }
+            .store(in: &subscriptions)
     }
     
     private func filterMovies() {
@@ -33,29 +75,29 @@ class DataStore: ObservableObject {
         }
     }
     
-    
+   
     func newMovie() {
         addMovie(Movie(adult: true, id: 1, poster_path: "", title: "", vote_average: 0.0, overview: ""))
     }
     
-    func addMovie(_ movie: Movie) {
+    private func addMovie(_ movie: Movie) {
         movies.append(movie)
         saveMoviesThrows()
         filteredMovies = movies
     }
     
-    func updateMovie(_ movie: Movie) {
+    private func updateMovie(_ movie: Movie) {
         guard let index = movies.firstIndex(where: { $0.id == movie.id}) else { return }
         movies[index] = movie
         saveMoviesThrows()
     }
     
-    func deleteMovie(at indexSet: IndexSet) {
+    private func deleteMovie(at indexSet: IndexSet) {
         movies.remove(atOffsets: indexSet)
         saveMoviesThrows()
     }
     
-    func deleteTodo(_ movie: Movie) {
+    private func deleteTodo(_ movie: Movie) {
         if let index = movies.firstIndex(where: {$0.id == movie.id}) {
             movies.remove(at: index)
             saveMoviesThrows()

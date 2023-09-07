@@ -15,10 +15,15 @@ struct FavouriteMovies: View {
         NavigationView {
             List {
                 ForEach(dataStore.movies) { movie in
-                    TrendingCard(trendingItem: movie)
+                    TrendingCard(trendingItem: movie, clickFavourite: { isFavourite in
+                        isFavourite ? dataStore.addMovieSubject.send(movie): dataStore.removeMovieSubject.send(movie)
+                        
+                    })
                         .background(Color(red: 39/255, green: 40/255, blue: 59/255))
                 }
+                .onDelete(perform: dataStore.removeMovieByIndexSubject.send(_:))
             }
+            
             .background(Color(red: 39/255, green: 40/255, blue: 59/255).ignoresSafeArea())
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .navigationBarTitle("Trending Movies", displayMode: .inline)
