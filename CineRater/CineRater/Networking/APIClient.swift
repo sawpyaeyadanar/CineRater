@@ -10,20 +10,13 @@ import Combine
 
 class APIClient: APITrendingService {
     func searchTrending(query: String, pageIndex: Int) -> AnyPublisher<TrendingResults, APIError> {
-        if let termEncoded = query.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed) {
            return APIService.shared.request(.search, parameters:
                                         [
                                             "language": "en-US",
                                             "page": "\(pageIndex)",
                                             "include_adult": "false",
-                                            "query": "\(termEncoded)"
+                                            "query": "\(query)"
                                         ])
-        }
-        return Just(TrendingResults(page: pageIndex, results: [Movie](), total_pages: pageIndex, total_results: 0))
-            .setFailureType(to: APIError.self)
-            .eraseToAnyPublisher()
-       
-       
     }
 
     func getTrendingList() -> AnyPublisher<TrendingResults, APIError> {
@@ -98,6 +91,9 @@ class APIService {
             }
         
             .mapError{ error -> APIError in
+               
+                print(" there is no error \(error.localizedDescription)")
+                
                 switch error {
                 case URLError.notConnectedToInternet:
                     return .notConnectedToInternet

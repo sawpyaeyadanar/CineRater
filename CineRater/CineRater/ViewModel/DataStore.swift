@@ -106,6 +106,22 @@ class DataStore: ObservableObject {
     }
     
     func loadMovies() {
+        do {
+           let data = try FileManager().readDocument(docName: fileName)
+            let decoder = JSONDecoder()
+            do {
+                movies = try decoder.decode([Movie].self, from: data)
+            } catch {
+                appError = ErrorType(error: .readError)
+                showErrorAlert = true
+            }
+        } catch {
+            appError = ErrorType(error: .readError)
+            showErrorAlert = true
+            print(error.localizedDescription)
+        }
+        /*
+         replace with throwing function
         FileManager().readDocument(docName: fileName) { (result) in
             switch result {
             case .success(let data):
@@ -123,6 +139,7 @@ class DataStore: ObservableObject {
                 print(error.localizedDescription)
             }
         }
+        */
     }
     
     func loadToDos2() {
@@ -149,13 +166,16 @@ class DataStore: ObservableObject {
         do {
             let data = try encoder.encode(movies)
             let jsonString = String(decoding: data, as: UTF8.self)
-            FileManager().saveDocument(contents: jsonString, docName: fileName) { (error) in
+            try FileManager().saveDocument(contents: jsonString, docName: fileName)
+            /* throwing function
+             FileManager().saveDocument(contents: jsonString, docName: fileName) { (error) in
                 if let error = error {
                     print(error.localizedDescription)
                     appError = ErrorType(error: .saveError)
                     showErrorAlert = true
                 }
             }
+            */
         } catch let error {
             appError = ErrorType(error: error as! LocalError)
             showErrorAlert = true

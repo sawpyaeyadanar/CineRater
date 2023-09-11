@@ -13,6 +13,8 @@ extension FileManager {
         return Self.default.urls(for: .documentDirectory, in: .userDomainMask).first!
     }
     
+    /*
+     replace with throwing function
     func saveDocument(contents: String, docName: String, completion: (LocalError?) -> Void) {
         let url = Self.docDirURL.appendingPathComponent(docName)
         do {
@@ -21,6 +23,7 @@ extension FileManager {
             completion(.saveError)
         }
     }
+     */
     func saveDocument(contents: String, docName: String) throws {
         let url = Self.docDirURL.appendingPathComponent(docName)
         do {
@@ -31,6 +34,8 @@ extension FileManager {
         }
     }
     
+    /*
+     replace with throwing function
     func readDocument(docName: String, completion: (Result<Data, LocalError>) -> Void) {
         let url = Self.docDirURL.appendingPathComponent(docName)
         do {
@@ -40,6 +45,7 @@ extension FileManager {
             completion(.failure(.readError))
         }
     }
+     */
     
     func readDocument(docName: String) throws -> Data {
         let url = Self.docDirURL.appendingPathComponent(docName)
