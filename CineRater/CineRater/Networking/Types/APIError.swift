@@ -55,5 +55,7 @@ struct ErrorType {
     var message: String {
         error.message
     }
-    let button = Button("OK", role: .cancel) {}
+    let button = Button("OK", role: .cancel) {
+        // Intentionally unimplemented...
+    }
 }
