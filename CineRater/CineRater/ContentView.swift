@@ -8,10 +8,15 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    //@EnvironmentObject var mainEnv: MainEnvironment
+    @EnvironmentObject var tabBarRouter: TabBarRouter
+    @EnvironmentObject var dataStore: DataStore
     @StateObject var viewModel : MovieDiscoverViewModel
     @State var searchText = ""
     
     var body: some View {
+        let _ = Self._printChanges()
         NavigationStack {
             if let errorMessage = viewModel.errorMessage {
                 VStack {
@@ -35,17 +40,41 @@ struct ContentView: View {
                                 HStack {
                                     
                                     ForEach(viewModel.trending) { movie in
+//                                        TrendingCard(trendingItem: movie, clickFavourite: { isFavourite in
+//
+//                                            if isFavourite {
+//                                                dataStore.addMovieSubject.send(movie)
+//                                            } else {
+//                                               dataStore.removeMovieSubject.send(movie)
+//                                            }
+//                                        })
                                         NavigationLink {
-                                           
+
                                             MovieDetailView(model:  MovieDetailsViewModel(apiService: APIClient(),
                                                                                           id: movie.id), movie: movie)
                                         } label: {
-                                            TrendingCard(trendingItem: movie)
+                                            TrendingCard(trendingItem: movie, clickFavourite: { isFavourite in
+                                                
+                                                if isFavourite {
+                                                    dataStore.addMovieSubject.send(movie)
+                                                } else {
+                                                   dataStore.removeMovieSubject.send(movie)
+                                                }
+                                            })
                                         }
+                                        /*
+                                            .onTapGesture {
+                                                self.itemTapped(movie)
+                                                //tabBarRouter.changeScreen(to: .favourite)
+                                            }
+                                         */
                                     }
+                                    
                                 }
                                 .padding(.horizontal)
+                                
                             }
+                           
                         }
                     } else {
                         LazyVStack {
@@ -88,27 +117,39 @@ struct ContentView: View {
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color(red: 39/255, green: 40/255, blue: 59/255)
-                    .ignoresSafeArea())
+                .background(Color(red: 39/255, green: 40/255, blue: 59/255).ignoresSafeArea())
+                //.clipped()
+                /** use clip to make sure that it doesn't overflow where it doesn't need to*/
             }
             
         }
-        .searchable(text: $searchText)
+
+        .searchable(text: $searchText,
+                    prompt:  Text("search movie"))
+        
         .onChange(of: searchText) { newValue in
             if newValue.count > 2 {
                 viewModel.searchItem(term: newValue, pageIndex: 1)
             }
         }
         .onAppear {
-           // viewModel.loadTrending()
+            // viewModel.loadTrending()
             viewModel.searchItem(term: searchText, pageIndex: 1)
         }
+        
+        
+        
+    }
+    
+    func itemTapped(_ item: Movie) {
+        print("Item tapped: \(item)")
+        dataStore.addMovieSubject.send(item)
     }
 }
 
- struct ContentView_Previews: PreviewProvider {
- static var previews: some View {
-     ContentView(viewModel: MovieDiscoverViewModel(apiService: APIPreviewClient()))
- }
- }
- 
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView(viewModel: MovieDiscoverViewModel(apiService: APIPreviewClient()))
+    }
+}
+

@@ -8,17 +8,17 @@
 import Foundation
 import SwiftUI
 import Combine
-
+import Observation
 //@MainActor //-> applicable for using task
 /*
  Publishing changes from background threads is not allowed; make sure to publish values from the main thread (via operators like receive(on:)) on model updates.
  */
-class MovieDetailsViewModel: ObservableObject {
+@Observable class MovieDetailsViewModel {
     
-    @Published var credits: MovieCredits?
-    @Published var cast: [MovieCredits.Cast] = []
-    @Published var castProfiles = [CastProfile]()
-    @Published var errorMessage: String?
+    var credits: MovieCredits?
+    var cast: [MovieCredits.Cast] = []
+    var castProfiles = [CastProfile]()
+    var errorMessage: String?
     private let apiService: APIDetailsService
     private var subscriptions: Set<AnyCancellable> = []
     var isFetching: Bool?

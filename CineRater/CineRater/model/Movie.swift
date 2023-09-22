@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Movie: Identifiable, Decodable {
+struct Movie: Identifiable, Codable {
     let adult: Bool
     let id: Int
     let poster_path: String

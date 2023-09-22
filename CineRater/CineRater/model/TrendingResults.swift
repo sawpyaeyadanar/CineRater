@@ -11,4 +11,11 @@ struct TrendingResults: Decodable {
     let results: [Movie]
     let total_pages: Int
     let total_results: Int
+    
+    private enum CodingKeys: String, CodingKey {
+        case page = "page"
+        case results = "results"
+        case total_pages = "totalPages"
+        case total_results = "totalResults"
+    }
 }

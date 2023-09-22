@@ -31,6 +31,7 @@ struct CastView: View {
 
 struct CastView_Previews: PreviewProvider {
     static var previews: some View {
-        CastView(cast: CastProfile(id: 1, name: "saw", profile_path: "https://image.tmdb.org/t/p/w200/vB8o2p4ETnrfiWEgVxHmHWP9yRl.jpg"))
+        CastView(cast: CastProfile(id: 1, name: "saw", profile_path:
+                                    Constants.getMockImageURL() + "/vB8o2p4ETnrfiWEgVxHmHWP9yRl.jpg"))
     }
 }

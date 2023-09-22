@@ -10,10 +10,11 @@ import SwiftUI
 struct MovieDetailView: View {
     
     @Environment(\.dismiss) var dismiss
-    @StateObject var model : MovieDetailsViewModel
+    @State var model : MovieDetailsViewModel
     
     let movie: Movie
     var body: some View {
+        let _ = Self._printChanges()
         ZStack {
             Color(red: 39/255, green: 40/255, blue: 59/255).ignoresSafeArea()
             GeometryReader { geo in
@@ -71,10 +72,9 @@ struct MovieDetailView: View {
                     }
                     ScrollView(.horizontal, showsIndicators: false) {
                         LazyHStack {
-                            if let profiles = model.castProfiles {
-                                ForEach(profiles) { profile in
-                                    CastView(cast:  profile)
-                                }
+                             let profiles = model.castProfiles
+                            ForEach(profiles) { profile in
+                                CastView(cast:  profile)
                             }
                         }
                     }
