@@ -1,0 +1,20 @@
+
+default_platform(:ios)
+
+platform :ios do
+  lane :unit_test do |options|
+    ENV['FASTLANE_XCODE_LIST_TIMEOUT'] = '600'
+    scan(
+        #workspace: "FindYourSpace.xcworkspace",
+        scheme: "CineRater",
+        test_without_building: false,
+        result_bundle: true,
+        code_coverage: true,
+        output_directory: "Build/Logs/Test/",
+    )
+  end
+  
+  lane :generate_code_coverage do |options|
+    sh "bash ../xccov-to-sonarqube-generic.sh ../Build/Logs/Test/CineRater.xcresult > ./sonarqube-generic-coverage.xml"
+  end
+ end

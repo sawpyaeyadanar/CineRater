@@ -47,31 +47,28 @@ steps:
 #      xcrun agvtool new-version -all
 
 - task: PowerShell@2
-  condition: startsWith(variables.buildConfig, 'Dev')
   displayName: "Install Fastlane & perform unit test & generate code coverage"
   inputs:
     targetType: 'inline'
     script: |
       brew install fastlane && fastlane unit_test && fastlane generate_code_coverage
 
-#- task: SonarCloudPrepare@1
- # condition: startsWith(variables.buildConfig, 'Dev')
-  #displayName: "Prepare and configure SonarCloud"
-  #inputs:
-   # SonarCloud: '$(sonarCloudServiceConnectionName)'
-    #organization: '$(sonarCloudOrganizationName)'
-    #scannerMode: 'CLI'
-    #configMode: 'file'
+- task: SonarCloudPrepare@1
+  displayName: "Prepare and configure SonarCloud"
+  inputs:
+    SonarCloud: 'CineRater_Service'
+    organization: 'sawpyaeyadanar'
+    scannerMode: 'CLI'
+    configMode: 'file'
+    
+- task: SonarCloudAnalyze@1
+  condition: startsWith(variables.buildConfig, 'Dev')
+  displayName: "Analyse codebase using SonarCloud"
 
-#- task: SonarCloudAnalyze@1
- # condition: startsWith(variables.buildConfig, 'Dev')
-  #displayName: "Analyse codebase using SonarCloud"
-
-#- task: SonarCloudPublish@1
- # condition: startsWith(variables.buildConfig, 'Dev')
-  #displayName: "Publish analysed codebase data using SonarCloud"
-  #inputs:
-   # pollingTimeoutSec: '300'
+- task: SonarCloudPublish@1
+  displayName: "Publish analysed codebase data using SonarCloud"
+  inputs:
+    pollingTimeoutSec: '300'
 
 #- task: PowerShell@2
 #  condition: eq(variables.buildUsingExportOptions, true)
@@ -95,36 +92,35 @@ steps:
     xcWorkspacePath: 'CineRater/CineRater.xcodeproj'
     scheme: 'CineRater'
     packageApp: true
-    exportOptions: 'plist'
-    exportOptionsPlist: '$(Pipeline.Workspace)/exportOptions.plist'
-    signingOption: 'auto'
-    teamId: 'YE28Y3LX8V'
+    #exportOptions: 'plist'
+    #exportOptionsPlist: '$(Pipeline.Workspace)/exportOptions.plist'
+    #signingOption: 'auto'
+    #teamId: 'YE28Y3LX8V'
 
-- task: CopyFiles@2
-  condition: ne(variables.buildConfig, 'Dev PR')
-  displayName: 'Copy build generated at default directory to artificatory directory'
-  inputs:
-    SourceFolder: '$(system.defaultworkingdirectory)'
-    Contents: '**/*.ipa'
-    TargetFolder: '$(build.artifactStagingDirectory)'
+#- task: CopyFiles@2
+#  condition: ne(variables.buildConfig, 'Dev PR')
+#  inputs:
+#    SourceFolder: '$(system.defaultworkingdirectory)'
+#    Contents: '**/*.ipa'
+#    TargetFolder: '$(build.artifactStagingDirectory)'
 
-- task: PublishBuildArtifacts@1
-  condition: ne(variables.buildConfig, 'Dev PR')
-  displayName: 'Publish the build artifact'
+#- task: PublishBuildArtifacts@1
+#  condition: ne(variables.buildConfig, 'Dev PR')
+#  displayName: 'Publish the build artifact'
 
-- task: AppStoreRelease@1
+#- task: AppStoreRelease@1
   #condition: ne(variables.buildConfig, 'Dev PR')
-  displayName: 'Upload the the build to testflight'
-  inputs:
-    authType: 'ApiKey'
-    apiKeyId: '$(appStoreAPIKey)'
-    apiKeyIssuerId: '$(appStoreAPIKeyIssuerID)'
-    apitoken: '$(appStoreAPIToken)'
-    releaseTrack: 'TestFlight'
-    appIdentifier: 'com.7peakssoftware.cinerater.CineRater'
-    appType: 'iOS'
-    shouldSkipWaitingForProcessing: true
-    shouldSkipSubmission: true
+  #displayName: 'Upload the the build to testflight'
+  #inputs:
+   # authType: 'ApiKey'
+    #apiKeyId: '$(appStoreAPIKey)'
+    #apiKeyIssuerId: '$(appStoreAPIKeyIssuerID)'
+    #apitoken: '$(appStoreAPIToken)'
+    #releaseTrack: 'TestFlight'
+    #appIdentifier: 'com.7peakssoftware.cinerater.CineRater'
+    #appType: 'iOS'
+    #shouldSkipWaitingForProcessing: true
+    #shouldSkipSubmission: true
 
 # task: PowerShell@2
 #  condition: ne(variables.buildConfig, 'Dev PR')
