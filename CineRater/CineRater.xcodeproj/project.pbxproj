@@ -23,6 +23,7 @@
 		496CA9982A98620900BDB809 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496CA9972A98620900BDB809 /* APIService.swift */; };
 		496CA99A2A98629100BDB809 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496CA9992A98629100BDB809 /* APIClient.swift */; };
 		496CA99C2A98667000BDB809 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496CA99B2A98667000BDB809 /* APIError.swift */; };
+		49AD2CB52ABD437100D810BA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49AD2CB42ABD437100D810BA /* Constants.swift */; };
 		49AEEA1E2A9C4AB1004B8F2C /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49AEEA1D2A9C4AB1004B8F2C /* Environment.swift */; };
 		49AEEA212A9C54CF004B8F2C /* APIPreviewClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49AEEA202A9C54CF004B8F2C /* APIPreviewClient.swift */; };
 		49AEEA252A9C5875004B8F2C /* trending.json in Resources */ = {isa = PBXBuildFile; fileRef = 49AEEA242A9C5875004B8F2C /* trending.json */; };
@@ -76,6 +77,7 @@
 		496CA9972A98620900BDB809 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		496CA9992A98629100BDB809 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		496CA99B2A98667000BDB809 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
+		49AD2CB42ABD437100D810BA /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		49AEEA1D2A9C4AB1004B8F2C /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		49AEEA202A9C54CF004B8F2C /* APIPreviewClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIPreviewClient.swift; sourceTree = "<group>"; };
 		49AEEA242A9C5875004B8F2C /* trending.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = trending.json; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 				49AEEA222A9C5513004B8F2C /* Networking */,
 				49AEEA1F2A9C4ABC004B8F2C /* Configuration */,
 				49E3048E2AA5B89800FFB3FB /* FileManager+Extension.swift */,
+				49AD2CB42ABD437100D810BA /* Constants.swift */,
 			);
 			path = CineRater;
 			sourceTree = "<group>";
@@ -383,6 +386,7 @@
 				4935D66C2A8A226C00477448 /* TrendingCard.swift in Sources */,
 				49AEEA302A9CA93F004B8F2C /* MovieCredits.swift in Sources */,
 				49D83D6D2A94B7230009E3DD /* CastView.swift in Sources */,
+				49AD2CB52ABD437100D810BA /* Constants.swift in Sources */,
 				4925ED4B2A837D5A00393AAC /* ContentView.swift in Sources */,
 				496CA99C2A98667000BDB809 /* APIError.swift in Sources */,
 				49AEEA2A2A9C6FA3004B8F2C /* TypeAlias.swift in Sources */,
@@ -566,6 +570,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -597,6 +602,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

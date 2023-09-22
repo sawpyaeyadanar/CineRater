@@ -10,7 +10,7 @@ import SwiftUI
 struct MovieDetailView: View {
     
     @Environment(\.dismiss) var dismiss
-    @StateObject var model : MovieDetailsViewModel
+    @State var model : MovieDetailsViewModel
     
     let movie: Movie
     var body: some View {
@@ -72,10 +72,9 @@ struct MovieDetailView: View {
                     }
                     ScrollView(.horizontal, showsIndicators: false) {
                         LazyHStack {
-                            if let profiles = model.castProfiles {
-                                ForEach(profiles) { profile in
-                                    CastView(cast:  profile)
-                                }
+                             let profiles = model.castProfiles
+                            ForEach(profiles) { profile in
+                                CastView(cast:  profile)
                             }
                         }
                     }
