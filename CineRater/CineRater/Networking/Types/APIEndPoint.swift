@@ -56,13 +56,7 @@ enum APIEndPoint {
     
      var httpMethod: HttpMethod {
         switch self {
-        case .trending:
-            return .get
-        case .credits(_):
-            return .get
-        case .search:
-            return  .get
-        case .person(_):
+        case .trending, .credits(_), .search, .person(_):
             return .get
         }
     }
