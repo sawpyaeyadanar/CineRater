@@ -8,6 +8,7 @@ platform :ios do
 #  puts "Hello World"
 #end
 
+#https://docs.fastlane.tools/getting-started/ios/running-tests/
 lane :tests do
   run_tests(project: "CineRater/CineRater.xcodeproj",scheme: "CineRater")
 end
@@ -30,9 +31,10 @@ end
  end
  
  lane :beta do
-  build_app(scheme: "CineRater")
+  build_app(scheme: "CineRater", project: "CineRater/CineRater.xcodeproj")
 end
 
+#https://blog.arturofm.com/how-to-setup-fastlane/
 # Builds and packages iOS apps. It takes care of all the heavy lifting and generate a signed ipa or app file
   desc "Builds and packages app"
   lane :export do
