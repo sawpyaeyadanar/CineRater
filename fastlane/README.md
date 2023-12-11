@@ -13,25 +13,6 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 # Available Actions
 
-### beta
-
-```sh
-[bundle exec] fastlane beta
-```
-
-
-
-### export
-
-```sh
-[bundle exec] fastlane export
-```
-
-Builds and packages app
-
-----
-
-
 ## iOS
 
 ### ios tests
@@ -40,7 +21,7 @@ Builds and packages app
 [bundle exec] fastlane ios tests
 ```
 
-
+Running tests
 
 ### ios unit_test
 
@@ -48,12 +29,52 @@ Builds and packages app
 [bundle exec] fastlane ios unit_test
 ```
 
-
+Running unit_tests
 
 ### ios generate_code_coverage
 
 ```sh
 [bundle exec] fastlane ios generate_code_coverage
+```
+
+Running generate_code_coverage
+
+### ios upload_to_firebase
+
+```sh
+[bundle exec] fastlane ios upload_to_firebase
+```
+
+Uploading to Firebase
+
+### ios export
+
+```sh
+[bundle exec] fastlane ios export
+```
+
+Builds and packages app
+
+### ios build
+
+```sh
+[bundle exec] fastlane ios build
+```
+
+Build application and export ipa
+
+### ios test
+
+```sh
+[bundle exec] fastlane ios test
+```
+
+Run Swift tests
+
+### ios beta
+
+```sh
+[bundle exec] fastlane ios beta
 ```
 
 

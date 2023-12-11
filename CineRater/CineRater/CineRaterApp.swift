@@ -6,11 +6,24 @@
 //
 
 import SwiftUI
+import FirebaseCore
+
 
 enum Screens {
     case trending
     case favourite
     case bookmark
+}
+
+
+
+class AppDelegate: NSObject, UIApplicationDelegate {
+  func application(_ application: UIApplication,
+                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+    FirebaseApp.configure()
+
+    return true
+  }
 }
 
 final class TabBarRouter: ObservableObject {
@@ -25,7 +38,7 @@ final class TabBarRouter: ObservableObject {
 @main
 struct CineRaterApp: App {
     @StateObject private var tabBarRouter = TabBarRouter()
-    
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     var body: some Scene {
         WindowGroup {
             TabView(selection: $tabBarRouter.screen) {
