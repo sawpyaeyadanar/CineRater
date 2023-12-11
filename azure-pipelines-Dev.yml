@@ -19,3 +19,4 @@ steps:
     scheme: 'CineRater DEV'
     packageApp: true
     destinationPlatformOption: 'iOS'
+    destinationSimulators: 'iPhone 14 Pro Max'
