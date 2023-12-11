@@ -13,8 +13,9 @@ steps:
 - task: Xcode@5
   inputs:
     actions: 'build'
-    scheme: 'CineRater DEV'
-    sdk: 'iphoneos'
     configuration: 'Release'
-    xcWorkspacePath: '**/*.xcodeproj/project.xcworkspace'
-    xcodeVersion: 'default' # Options: 8, 9, 10, 11, 12, default, specifyPath
+    sdk: 'iphoneos'
+    xcWorkspacePath: 'CineRater/CineRater.xcodeproj'
+    scheme: 'CineRater DEV'
+    packageApp: true
+    destinationPlatformOption: 'iOS'
