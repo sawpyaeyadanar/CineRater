@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyCSGzlEJk_q7F_Bh6hO0yzW1eK0b-ZLMMk</string>
+	<key>GCM_SENDER_ID</key>
+	<string>362664942492</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.7peakssoftware.cinerater.CineRater</string>
+	<key>PROJECT_ID</key>
+	<string>cinerater-92c0f</string>
+	<key>STORAGE_BUCKET</key>
+	<string>cinerater-92c0f.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:362664942492:ios:9fbda7c447c3cbbc5e4659</string>
+</dict>
+</plist>

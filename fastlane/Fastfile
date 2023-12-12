@@ -2,11 +2,25 @@
 default_platform(:ios)
 
 platform :ios do
-  lane :unit_test do |options|
+#bundle exec fastlane
+#desc "Description of what the lane does"
+#lane :tests do
+#  puts "Hello World"
+#end
+
+#https://docs.fastlane.tools/getting-started/ios/running-tests/
+desc "Running tests"
+lane :tests do
+  run_tests(project: "CineRater/CineRater.xcodeproj",scheme: "CineRater DEV")
+end
+
+#bundle exec fastlane unit_test
+desc "Running unit_tests"
+  lane :unit_test do 
     ENV['FASTLANE_XCODE_LIST_TIMEOUT'] = '600'
     scan(
-        #workspace: "FindYourSpace.xcworkspace",
-        scheme: "CineRater",
+        project: "CineRater/CineRater.xcodeproj",
+        scheme: "CineRater DEV",
         test_without_building: false,
         result_bundle: true,
         code_coverage: true,
@@ -14,7 +28,92 @@ platform :ios do
     )
   end
   
-  lane :generate_code_coverage do |options|
+  desc "Running generate_code_coverage"
+  lane :generate_code_coverage do 
+    run_tests(project: "CineRater/CineRater.xcodeproj",scheme: "CineRater DEV")
     sh "bash ../xccov-to-sonarqube-generic.sh ../Build/Logs/Test/CineRater.xcresult > ./sonarqube-generic-coverage.xml"
   end
- end
+ 
+ 
+# lane :beta do
+ # build_app(scheme: "CineRater", project: "CineRater/CineRater.xcodeproj")
+#end
+
+
+
+desc "Uploading to Firebase"
+lane :upload_to_firebase do
+ #Step 1 — Build your app, my suggestion is gym
+ #Step 2 — Upload to firebase app distribution
+ firebase_app_distribution(
+   app: "1:362664942492:ios:9fbda7c447c3cbbc5e4659",
+   testers: "sawpyae.yadanar@7peakssoftware.com",
+   groups: "Group1",
+   release_notes: "RELEASE-NOTE",
+   firebase_cli_path: "/usr/local/bin/firebase",
+   ipa_path: "/Users/sawpyaeyadanar/Desktop/CineRater\ DEV\ 2023-12-11\ 5-00-40 PM/Apps/CineRater.ipa"
+ )
+end
+
+#https://blog.arturofm.com/how-to-setup-fastlane/
+# Builds and packages iOS apps. It takes care of all the heavy lifting and generate a signed ipa or app file
+#Create an Incoming WebHook for your Slack group
+  desc "Builds and packages app"
+  lane :export do
+    gym(
+      project: "CineRater/CineRater.xcodeproj",
+      # Target you are exporting
+      scheme: "CineRater",
+      # Hide all information that's not necessary while building
+      silent: false,
+      # Clean the project before uploading it
+      clean: true,
+      # Uses Automatic manage signing - This is toggled on Xcode under Signing and capabilities.
+      export_xcargs: "-allowProvisioningUpdates",
+      output_name: "ReleaseApp.ipa"
+    )
+  end
+
+#Create an Incoming WebHook for your Slack group
+desc "Build application and export ipa"
+lane:build do 
+  gym(
+    project: "CineRater/CineRater.xcodeproj",
+    scheme: "CineRater DEV",
+    silent: false,
+    clean: true,
+    output_directory: "./artifact",
+    output_name: "CineRaterDev.ipa")
+  
+end
+
+desc "Run Swift tests"
+lane :test do
+  scan(
+    project: "CineRater/CineRater.xcodeproj",
+    scheme: "CineRater DEV",
+    test_without_building: true,
+    derived_data_path: "derived_data"
+  )
+end
+
+
+#error: There is no XCFramework found at
+  lane :beta do
+  scan
+  gym(scheme: "CineRater DEV")
+  crashlytics
+end
+
+# error block is executed when a error occurs
+error do |lane, exception|
+  slack(
+    # message with short human friendly message
+    message: exception.to_s,
+    success: false,
+    # Output containing extended log output
+    payload: { "Output" => exception.error_info.to_s }
+  )
+end
+
+end
