@@ -21,3 +21,23 @@ steps:
     publishJUnitResults: true
     destinationPlatformOption: 'iOS'
     destinationSimulators: 'iPhone 14 Pro Max'
+
+- task: PowerShell@2
+  displayName: 'Unit test & Code coverage'
+  inputs:
+    targetType: 'inline'
+    script: |
+      brew install fastlane && fastlane generate_code_coverage
+
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'CineRater_Service'
+    organization: 'sawpyaeyadanar'
+    scannerMode: 'CLI'
+    configMode: 'file'
+
+- task: SonarCloudAnalyze@1
+
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
