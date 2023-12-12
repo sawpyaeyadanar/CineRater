@@ -19,7 +19,7 @@ steps:
     scheme: 'CineRater DEV'
     packageApp: false
     publishJUnitResults: true
-    destinationPlatformOption: 'iOS'
+    #destinationPlatformOption: 'iOS'
     #destinationSimulators: 'iPhone 14 Pro Max'
 
 - task: PowerShell@2
