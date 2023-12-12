@@ -20,7 +20,7 @@ steps:
     packageApp: false
     publishJUnitResults: true
     destinationPlatformOption: 'iOS'
-    destinationSimulators: 'iPhone 14 Pro Max'
+    #destinationSimulators: 'iPhone 14 Pro Max'
 
 - task: PowerShell@2
   displayName: 'Unit test & Code coverage'
