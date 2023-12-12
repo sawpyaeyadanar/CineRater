@@ -12,12 +12,12 @@ pool:
 steps:
 - task: Xcode@5
   inputs:
-    actions: 'build'
+    actions: 'clean build'
     configuration: 'Release'
     sdk: 'iphoneos'
     xcWorkspacePath: 'CineRater/CineRater.xcodeproj'
     scheme: 'CineRater DEV'
-    packageApp: true
-    signingOption: 'default'
+    packageApp: false
+    publishJUnitResults: true
     destinationPlatformOption: 'iOS'
     destinationSimulators: 'iPhone 14 Pro Max'
