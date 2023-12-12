@@ -18,6 +18,6 @@ steps:
     xcWorkspacePath: 'CineRater/CineRater.xcodeproj'
     scheme: 'CineRater DEV'
     packageApp: true
-    signingOption: 'auto'
+    signingOption: 'default'
     destinationPlatformOption: 'iOS'
     destinationSimulators: 'iPhone 14 Pro Max'
