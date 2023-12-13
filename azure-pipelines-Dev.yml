@@ -32,6 +32,7 @@ steps:
     sdk: 'iphoneos'
     xcWorkspacePath: 'CineRater/CineRater.xcodeproj'
     scheme: 'CineRater DEV'
+    xcodeVersion: '15'
     #xcodeVersion: 'specifyPath'
     #xcodeDeveloperDir: '/Applications/Xcode.app'
     packageApp: false
