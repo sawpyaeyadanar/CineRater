@@ -30,7 +30,11 @@ desc "Running unit_tests"
   
   desc "Running generate_code_coverage"
   lane :generate_code_coverage do 
-    run_tests(project: "CineRater/CineRater.xcodeproj",scheme: "CineRater DEV")
+    run_tests(project: "CineRater/CineRater.xcodeproj",
+scheme: "CineRater DEV",
+derived_data_path: "./Build/",
+      code_coverage: true,
+      xcargs: "-skipPackagePluginValidation")
     sh("bash ../xccov-to-sonarqube-generic.sh ../Build/Logs/Test/*.xcresult/ > ../coverage.xml")
   end
  
