@@ -13,13 +13,24 @@ pool:
   vmImage: 'macos-13'
 
 steps:
+- script: |
+   xcodebuild -showsdks
+   
+   echo "========================================================="
+   
+   sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer
+   
+   xcodebuild -showsdks
+  displayName: 'Command Line Script'
+
+#steps:
 - task: Xcode@5
   displayName: 'Use this task to build, test, or archive an Xcode workspace on macOS, and optionally package an app.'
   inputs:
     actions: 'clean build'
     configuration: 'Release'
     sdk: 'iphoneos'
-    xcWorkspacePath: 'CineRater.xcodeproj'
+    xcWorkspacePath: 'CineRater/CineRater.xcodeproj'
     scheme: 'CineRater DEV'
     xcodeVersion: 'specifyPath'
     xcodeDeveloperDir: '/Applications/Xcode.app/Contents/Developer'
