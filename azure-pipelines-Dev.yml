@@ -21,8 +21,7 @@ steps:
     sdk: 'iphoneos'
     xcWorkspacePath: 'CineRater/CineRater.xcodeproj'
     scheme: 'CineRater DEV'
-    xcodeVersion: 'specifyPath'
-    xcodeDeveloperDir: '/Applications/Xcode.app'
+    xcodeVersion: '15'
     packageApp: false
     publishJUnitResults: true
     #destinationPlatformOption: 'iOS'
