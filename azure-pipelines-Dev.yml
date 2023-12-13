@@ -22,7 +22,7 @@ steps:
     xcWorkspacePath: 'CineRater/CineRater.xcodeproj'
     scheme: 'CineRater DEV'
     xcodeVersion: 'specifyPath'
-    xcodeDeveloperDir: '/Applications/Xcode.app/Contents/Developer'
+    xcodeDeveloperDir: '/Applications/Xcode 15.0.1.app/Contents/Developer'
     packageApp: false
     publishJUnitResults: true
     #destinationPlatformOption: 'iOS'
