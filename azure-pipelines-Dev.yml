@@ -19,7 +19,7 @@ steps:
     actions: 'clean build'
     configuration: 'Release'
     sdk: 'iphoneos'
-    xcWorkspacePath: 'CineRater/CineRater.xcodeproj'
+    xcWorkspacePath: 'CineRater.xcodeproj'
     scheme: 'CineRater DEV'
     xcodeVersion: 'specifyPath'
     xcodeDeveloperDir: '/Applications/Xcode.app/Contents/Developer'
