@@ -19,7 +19,7 @@ steps:
     xcWorkspacePath: 'CineRater/CineRater.xcodeproj'
     scheme: 'CineRater DEV'
     xcodeVersion: 'specifyPath'
-    xcodeDeveloperDir: '/Applications/Xcode.app/Contents/Developer'
+    xcodeDeveloperDir: '/Applications/Xcode.app'
     packageApp: false
     publishJUnitResults: true
     #destinationPlatformOption: 'iOS'
