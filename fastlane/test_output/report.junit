@@ -1,2 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<testsuites tests='0' failures='0'/>
+<testsuites name='CineRaterTests.xctest' tests='1' failures='0'>
+  <testsuite name='CineRaterTests.CineRaterTests' tests='1' failures='0'>
+    <testcase classname='CineRaterTests.CineRaterTests' name='test_getTrendingData' time='0.002'/>
+  </testsuite>
+</testsuites>
