@@ -11,10 +11,34 @@ pool:
 
 steps:
 - task: Xcode@5
+  displayName: 'Use this task to build, test, or archive an Xcode workspace on macOS, and optionally package an app.'
   inputs:
-    actions: 'build'
-    scheme: ''
-    sdk: 'iphoneos'
+    actions: 'clean build'
     configuration: 'Release'
-    xcWorkspacePath: '**/*.xcodeproj/project.xcworkspace'
-    xcodeVersion: 'default' # Options: 8, 9, 10, 11, 12, default, specifyPath
+    sdk: 'iphoneos'
+    xcWorkspacePath: 'CineRater/CineRater.xcodeproj'
+    scheme: 'CineRater DEV'
+    packageApp: false
+    publishJUnitResults: true
+    #destinationPlatformOption: 'iOS'
+    #destinationSimulators: 'iPhone 14 Pro Max'
+
+- task: PowerShell@2
+  displayName: 'Unit test & Code coverage'
+  inputs:
+    targetType: 'inline'
+    script: |
+      brew install fastlane && fastlane generate_code_coverage
+
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'CineRater_Service'
+    organization: 'sawpyaeyadanar'
+    scannerMode: 'CLI'
+    configMode: 'file'
+
+- task: SonarCloudAnalyze@1
+
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
