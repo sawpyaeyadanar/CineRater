@@ -16,7 +16,7 @@ steps:
 - script: |
    xcodebuild -showsdks
    
-   echo "========================================================="
+   echo "=====================XCode Path ============================"
    
    sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer
    
@@ -32,8 +32,8 @@ steps:
     sdk: 'iphoneos'
     xcWorkspacePath: 'CineRater/CineRater.xcodeproj'
     scheme: 'CineRater DEV'
-    xcodeVersion: 'specifyPath'
-    xcodeDeveloperDir: '/Applications/Xcode.app'
+    #xcodeVersion: 'specifyPath'
+    #xcodeDeveloperDir: '/Applications/Xcode.app'
     packageApp: false
     publishJUnitResults: true
     #destinationPlatformOption: 'iOS'
