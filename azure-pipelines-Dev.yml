@@ -30,7 +30,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      bundle exec fastlane generate_code_coverage
+      fastlane generate_code_coverage
 
 - task: Xcode@5
   displayName: 'Use this task to build, test, or archive an Xcode workspace on macOS, and optionally package an app.'
