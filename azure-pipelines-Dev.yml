@@ -10,11 +10,7 @@ trigger:
     - develop
 
 pool:
-  vmImage: 'macos-latest'
-
-- script: |
-    sudo xcode-select -p
-  displayName: Displays the current version of Xcode
+  vmImage: 'macos-13'
 
 steps:
 - task: Xcode@5
