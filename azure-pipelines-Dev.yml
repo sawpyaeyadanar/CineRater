@@ -14,9 +14,6 @@ steps:
   displayName: 'Use this task to build, test, or archive an Xcode workspace on macOS, and optionally package an app.'
   inputs:
     actions: 'clean build'
-- task: Xcode@5
-  inputs:
-    actions: 'clean build'
     configuration: 'Release'
     sdk: 'iphoneos'
     xcWorkspacePath: 'CineRater/CineRater.xcodeproj'
