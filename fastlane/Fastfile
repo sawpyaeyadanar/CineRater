@@ -31,7 +31,7 @@ desc "Running unit_tests"
   desc "Running generate_code_coverage"
   lane :generate_code_coverage do 
     run_tests(project: "CineRater/CineRater.xcodeproj",scheme: "CineRater DEV")
-    sh "bash ../xccov-to-sonarqube-generic.sh ../Build/Logs/Test/CineRater.xcresult > ./sonarqube-generic-coverage.xml"
+    sh("bash ../xccov-to-sonarqube-generic.sh ../Build/Logs/Test/*.xcresult/ > ../coverage.xml")
   end
  
  
