@@ -23,6 +23,20 @@ steps:
    xcodebuild -showsdks
   displayName: 'Command Line Script'
 
+- task: InstallAppleCertificate@2
+  displayName: "Install Apple's code signing certificate"
+  inputs:
+    certSecureFile: 'AppleDistribution14Nov (3).p12'
+    certPwd: '$(p12Password)'
+    keychain: 'temp'
+    deleteCert: true
+    
+- task: InstallAppleProvisioningProfile@1
+  displayName: "Install Apple's code signing provisioning profile"
+  inputs:
+    provisioningProfileLocation: 'secureFiles'
+    provProfileSecureFile: 'CineRater.mobileprovision'
+    removeProfile: true
 
 #- task: PowerShell@2
 #  displayName: 'Unit test & Code coverage'
@@ -45,7 +59,9 @@ steps:
 #    packageApp: false
 #    publishJUnitResults: true
 
+
 - task: CopyFiles@2
+  displayName: 'Copy files from a source folder to a target folder using patterns matching file paths (not folder paths)'
   inputs:
       SourceFolder: '$(system.defaultworkingdirectory)'
       Contents: '**/*.ipa'
@@ -53,6 +69,7 @@ steps:
       flattenFolders: true
 
 - task: PublishBuildArtifacts@1
+  displayName: 'Publish build artifacts to Azure Pipelines or a Windows file share'
 
 - task: AppStoreRelease@1
   displayName: 'Upload the the build to testflight'
