@@ -51,14 +51,16 @@ steps:
 
 
 - task: SonarCloudPrepare@1
+  displayName: 'Prepare SonarCloud analysis configuration'
   inputs:
     SonarCloud: 'CineRater_Service'
     organization: 'sawpyaeyadanar'
     scannerMode: 'CLI'
     configMode: 'file'
 
-- task: SonarCloudAnalyze@1
+#- task: SonarCloudAnalyze@1
 
 - task: SonarCloudPublish@1
+  displayName: 'Publish SonarCloud Quality Gate result on the Azure Pipelines build result. To be used after the actual analysis. \n This task will poll SonarCloud until the analysis is completed, or until the timeout is reached'
   inputs:
     pollingTimeoutSec: '300'
