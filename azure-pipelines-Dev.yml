@@ -12,6 +12,15 @@ trigger:
 pool:
   vmImage: 'macos-13'
 
+variables:
+- name: appStoreAPIKey
+  value: 'W5T9AN5F9U'
+
+- name: appStoreAPIKeyIssuerID
+  value: '69a6de8b-02be-47e3-e053-5b8c7c11a4d1'
+
+
+
 steps:
 - script: |
    xcodebuild -showsdks
