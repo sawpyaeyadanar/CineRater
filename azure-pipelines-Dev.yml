@@ -33,7 +33,7 @@ steps:
   displayName: 'Command Line Script'
 
 - task: InstallAppleCertificate@2
-  displayName: "Install Apple's code signing certificate"
+  displayName: "Install an Apple certificate required to build on a macOS agent machine"
   inputs:
     certSecureFile: 'AppleDistribution14Nov (3).p12'
     certPwd: '$(p12Password)'
@@ -41,7 +41,7 @@ steps:
     deleteCert: true
     
 - task: InstallAppleProvisioningProfile@1
-  displayName: "Install Apple's code signing provisioning profile"
+  displayName: "Install an Apple provisioning profile required to build on a macOS agent machine"
   inputs:
     provisioningProfileLocation: 'secureFiles'
     provProfileSecureFile: 'CineRater.mobileprovision'
