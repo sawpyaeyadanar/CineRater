@@ -45,7 +45,27 @@ steps:
 #    packageApp: false
 #    publishJUnitResults: true
 
+- task: CopyFiles@2
+  inputs:
+      SourceFolder: '$(system.defaultworkingdirectory)'
+      Contents: '**/*.ipa'
+      TargetFolder: '$(build.artifactStagingDirectory)'
+      flattenFolders: true
 
+- task: PublishBuildArtifacts@1
+
+- task: AppStoreRelease@1
+  displayName: 'Upload the the build to testflight'
+  inputs:
+    authType: 'ApiKey'
+    apiKeyId: '$(appStoreAPIKey)'
+    apiKeyIssuerId: '$(appStoreAPIKeyIssuerID)'
+    apitoken: '$(appStoreAPIToken)'
+    releaseTrack: 'TestFlight'
+    appIdentifier: 'com.7peakssoftware.cinerater.CineRater'
+    appType: 'iOS'
+    shouldSkipWaitingForProcessing: true
+    shouldSkipSubmission: true
 
 - task: SonarCloudPrepare@1
   displayName: 'Prepare SonarCloud analysis configuration'
