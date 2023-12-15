@@ -139,7 +139,8 @@ steps:
     releaseTrack: 'TestFlight'
     appIdentifier: 'com.7peakssoftware.cinerater.CineRater'
     appType: 'iOS'
-    ipaPath: '$(Pipeline.Workspace)/*.ipa'
+    #ipaPath: '$(Pipeline.Workspace)/*.ipa'
+    ipaPath: '$(build.artifactstagingdirectory)/**/*.ipa'
     shouldSkipWaitingForProcessing: true
     shouldSkipSubmission: true
 
