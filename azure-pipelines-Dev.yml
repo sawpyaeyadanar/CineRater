@@ -80,6 +80,7 @@ steps:
 #      /usr/bin/xcodebuild -exportArchive -archivePath $(ArchivePath) -exportOptionsPlist $(Build.SourcesDirectory)/MyApplication-Info.plist  -exportPath $(ExportIpaPath)
 #  displayName: 'Xcode Export'
 
+
 - task: Xcode@5
   displayName: 'Use this task to build, test, or archive an Xcode workspace on macOS, and optionally package an app.'
   inputs:
@@ -119,6 +120,7 @@ steps:
     releaseTrack: 'TestFlight'
     appIdentifier: 'com.7peakssoftware.cinerater.CineRater'
     appType: 'iOS'
+    ipaPath: '$(Pipeline.Workspace)/*.ipa'
     shouldSkipWaitingForProcessing: true
     shouldSkipSubmission: true
 
