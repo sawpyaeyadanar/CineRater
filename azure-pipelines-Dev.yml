@@ -84,9 +84,9 @@ steps:
   displayName: 'Use this task to build, test, or archive an Xcode workspace on macOS, and optionally package an app.'
   inputs:
     actions: 'clean build'
-    configuration: '$(Configuration)'
+    configuration: 'Debug Dev'
     sdk: '$(SDK)'
-    xcWorkspacePath: '**/*.xcodeproj'
+    xcWorkspacePath: 'CineRater.xcodeproj'
     scheme: 'CineRater DEV'
     xcodeVersion: '15'
     #xcodeVersion: 'specifyPath'
