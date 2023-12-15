@@ -84,16 +84,17 @@ steps:
   displayName: 'Use this task to build, test, or archive an Xcode workspace on macOS, and optionally package an app.'
   inputs:
     actions: 'clean build'
-    configuration: 'Release'
-    sdk: 'iphoneos'
-    xcWorkspacePath: 'CineRater/CineRater.xcodeproj'
+    configuration: '$(Configuration)'
+    sdk: '$(SDK)'
+    xcWorkspacePath: '**/*.xcodeproj'
     scheme: 'CineRater DEV'
     xcodeVersion: '15'
     #xcodeVersion: 'specifyPath'
     #xcodeDeveloperDir: '/Applications/Xcode.app'
     packageApp: false
     publishJUnitResults: true
-    archivePath: '$(Build.SourcesDirectory)/build/iOSApp.xcarchive'
+    args: '-skipPackagePluginValidation'
+    archivePath: '$(Build.SourcesDirectory)/build/CineRateriOSApp.xcarchive'
     exportPath: '$(Build.SourcesDirectory)/build/output'
 
 
