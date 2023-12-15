@@ -27,6 +27,12 @@ variables:
 
 - name: teamId
   value: 'YE28Y3LX8V'
+  
+- name: configuration
+  value: 'Debug Dev'
+
+- name: scheme
+  value: 'CineRater DEV'
 
 
 
@@ -104,7 +110,7 @@ steps:
       echo "Build iOS app"
       cd $(Build.SourcesDirectory)
       
-      /usr/bin/xcodebuild -sdk iphoneos -configuration Debug Dev -project /Users/runner/work/1/s/CineRater/CineRater.xcodeproj -scheme CineRater DEV  build -skipPackagePluginValidation CODE_SIGNING_ALLOWED=NO
+      /usr/bin/xcodebuild -sdk iphoneos -configuration $(configuration) -project /Users/runner/work/1/s/CineRater/CineRater.xcodeproj -scheme $(scheme)  build -skipPackagePluginValidation CODE_SIGNING_ALLOWED=NO
   displayName: 'Xcode Buid'
 
 - task: CmdLine@2
@@ -113,7 +119,7 @@ steps:
       echo "Archive the iOS app"
       cd $(Build.SourcesDirectory)
       
-      /usr/bin/xcodebuild -sdk iphoneos -configuration Debug Dev -project /Users/runner/work/1/s/CineRater/CineRater.xcodeproj -scheme CineRater DEV archive -allowProvisioningUpdates CODE_SIGN_STYLE=NO -archivePath $(ArchivePath)
+      /usr/bin/xcodebuild -sdk iphoneos -configuration $(configuration) -project /Users/runner/work/1/s/CineRater/CineRater.xcodeproj -scheme $(scheme) archive -allowProvisioningUpdates CODE_SIGN_STYLE=NO -archivePath $(ArchivePath)
   displayName: 'Xcode Archive'
 #- task: Xcode@5
   
