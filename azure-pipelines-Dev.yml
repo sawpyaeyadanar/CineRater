@@ -112,10 +112,10 @@ steps:
     packageApp: false
     publishJUnitResults: true
     args: '-skipPackagePluginValidation'
-    archivePath: '$(Build.SourcesDirectory)/build/CineRateriOSApp.xcarchive'
-    exportPath: 'output/Archive'
-    exportOptions: 'plist'
-    exportOptionsPlist: '$(Pipeline.Workspace)/exportOptions.plist'
+    #archivePath: '$(Build.SourcesDirectory)/build/CineRateriOSApp.xcarchive'
+    #exportPath: 'output/Archive'
+    #exportOptions: 'plist'
+    #exportOptionsPlist: '$(Pipeline.Workspace)/exportOptions.plist'
 
 
 - task: CopyFiles@2
