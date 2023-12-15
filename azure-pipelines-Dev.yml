@@ -120,23 +120,24 @@ steps:
     #xcodeDeveloperDir: '/Applications/Xcode.app'
     packageApp: false
     publishJUnitResults: true
-    args: '-skipPackagePluginValidation'
     #archivePath: '$(Build.SourcesDirectory)/build/CineRateriOSApp.xcarchive'
-    #exportPath: 'output/Archive'
-    #exportOptions: 'plist'
-    #exportOptionsPlist: '$(Pipeline.Workspace)/exportOptions.plist'
+    exportPath: 'output/Archive'
+    exportOptions: 'plist'
+    exportOptionsPlist: '$(Pipeline.Workspace)/exportOptions.plist'
+    signingOption: 'default'
+    args: '-skipPackagePluginValidation'
 
-- task: CmdLine@2
-  inputs:    
-    script:
-      'xcodebuild -project CineRater/CineRater.xcodeproj -scheme "CineRater DEV" -archivePath $(Build.BinariesDirectory).archive.xcarchive archive'
-  displayName: 'Xcode Archive'
+#- task: CmdLine@2
+#  inputs:    
+#    script:
+#      'xcodebuild -project CineRater/CineRater.xcodeproj -scheme "CineRater DEV" -archivePath $(Build.BinariesDirectory).archive.xcarchive archive'
+#  displayName: 'Xcode Archive'
 
-- task: CmdLine@2
-  inputs:    
-    script: |
-      ‘xcodebuild -exportArchive -archivePath $(Build.BinariesDirectory).archive.xcarchive -exportPath $(Build.BinariesDirectory)/exported -exportOptionsPlist $(plist.secureFilePath)’
-  displayName: 'Xcode Export'
+#- task: CmdLine@2
+#  inputs:    
+#    script: |
+#      ‘xcodebuild -exportArchive -archivePath $(Build.BinariesDirectory).archive.xcarchive -exportPath $(Build.BinariesDirectory)/exported -exportOptionsPlist $(plist.secureFilePath)’
+#  displayName: 'Xcode Export'
 
 #- task: Xcode@5
   
