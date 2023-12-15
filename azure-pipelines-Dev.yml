@@ -128,10 +128,7 @@ steps:
 
 - task: CmdLine@2
   inputs:    
-    script: |
-      echo "Archive the iOS app"
-      cd $(Build.SourcesDirectory)
-      
+    script:
       'xcodebuild -project CineRater.xcodeproj -scheme $(scheme) -archivePath $(Build.BinariesDirectory).archive.xcarchive archive'
   displayName: 'Xcode Archive'
 
