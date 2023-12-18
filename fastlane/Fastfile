@@ -8,6 +8,9 @@ platform :ios do
 #  puts "Hello World"
 #end
 
+
+
+
 #https://docs.fastlane.tools/getting-started/ios/running-tests/
 desc "Running tests"
 lane :tests do
@@ -63,11 +66,11 @@ end
 # Builds and packages iOS apps. It takes care of all the heavy lifting and generate a signed ipa or app file
 #Create an Incoming WebHook for your Slack group
   desc "Builds and packages app"
-  lane :export do
+  lane :build_and_package do
     gym(
       project: "CineRater/CineRater.xcodeproj",
       # Target you are exporting
-      scheme: "CineRater",
+      scheme: "CineRater DEV",
       # Hide all information that's not necessary while building
       silent: false,
       # Clean the project before uploading it
@@ -103,11 +106,11 @@ end
 
 
 #error: There is no XCFramework found at
-  lane :beta do
-  scan
-  gym(scheme: "CineRater DEV")
-  crashlytics
-end
+desc "Upload to TestFlight"
+ lane :production do
+   build
+   pilot  
+ end
 
 # error block is executed when a error occurs
 error do |lane, exception|
