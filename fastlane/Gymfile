@@ -10,9 +10,9 @@
 
 # sdk("iphoneos9.0")
 
-clean(true)
+#clean(true)
 
-output_directory("./build")
-output_name("FinalRelease")
-export_options("./ExportOptions.plist")
+#output_directory("./build")
+#output_name("FinalRelease")
+#export_options("./ExportOptions.plist")
 
