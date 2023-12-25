@@ -128,12 +128,10 @@ steps:
     xcodeVersion: '15'
     packageApp: false
     signingOption: 'manual'
-    provisioningProfileUuid: '32221660-01d5-4c75-824b-489333e64d2a'
+    provisioningProfileUuid: '66674a60-a2cf-40f6-bab6-e371f4e3f04c'
+    provisioningProfileName: 'CineRater.mobileprovision'
     args: '-skipPackagePluginValidation'
     publishJUnitResults: true
-    exportPath: 'output/Archive'
-    exportOptions: 'plist'
-    exportOptionsPlist: '$(Pipeline.Workspace)/exportOptions.plist'
 
 #- task: CmdLine@2
 #  inputs:    
