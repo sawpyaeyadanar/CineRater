@@ -131,9 +131,9 @@ steps:
     packageApp: false
     publishJUnitResults: true
     #archivePath: '$(Build.SourcesDirectory)/build/CineRateriOSApp.xcarchive'
-    #exportPath: 'output/Archive'
-    #exportOptions: 'plist'
-    #exportOptionsPlist: '$(Pipeline.Workspace)/exportOptions.plist'
+    exportPath: 'output/Archive'
+    exportOptions: 'plist'
+    exportOptionsPlist: '$(Pipeline.Workspace)/exportOptions.plist'
     signingOption: 'default'
     args: '-skipPackagePluginValidation'
 
