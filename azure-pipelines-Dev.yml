@@ -23,7 +23,7 @@ variables:
   value: 'com.7peakssoftware.cinerater.CineRater'
   
 - name: profileUUID
-  value: '0B25D017035A3F9A9FDB399F3F5FB45282452ED9'
+  value: '66674a60-a2cf-40f6-bab6-e371f4e3f04c'
 
 - name: teamId
   value: 'YE28Y3LX8V'
