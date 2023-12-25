@@ -77,6 +77,7 @@ end
       clean: true,
       # Uses Automatic manage signing - This is toggled on Xcode under Signing and capabilities.
       export_xcargs: "-allowProvisioningUpdates",
+      skip_slack: true,
       output_name: "ReleaseApp.ipa"
     )
   end
@@ -90,6 +91,7 @@ lane:build do
     silent: false,
     clean: true,
     output_directory: "./artifact",
+    skip_slack: true,
     output_name: "CineRaterDev.ipa")
   
 end
