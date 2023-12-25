@@ -126,7 +126,7 @@ steps:
     xcWorkspacePath: 'CineRater/CineRater.xcodeproj'
     scheme: 'CineRater DEV'
     xcodeVersion: '15'
-    packageApp: false
+    packageApp: true
     signingOption: 'manual'
     provisioningProfileUuid: '66674a60-a2cf-40f6-bab6-e371f4e3f04c'
     #provisioningProfileName: 'CineRater.mobileprovision'
