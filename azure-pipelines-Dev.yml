@@ -107,27 +107,16 @@ steps:
       /usr/libexec/PlistBuddy -c "Add :signingStyle string manual" $(Pipeline.Workspace)/exportOptions.plist &&
       /usr/libexec/PlistBuddy -c "Add :teamID string $(teamId)" $(Pipeline.Workspace)/exportOptions.plist
       
-jobs:
-- job: PrepareBuild
-  displayName: 'Prepare Build'
-  pool:
-    vmImage: 'macOS-latest'
-  steps:
-  - script: |
-      echo "Checking PR title and commit messages..."
-      PR_TITLE=$(git log --format=%s -n 1 $BUILD_SOURCEVERSION)
-      echo "PR Title: $PR_TITLE"
 
-      # Add logic to set a variable with the PR title or commit messages
-      echo "##vso[task.setvariable variable=PR_TITLE]$PR_TITLE"
-    displayName: 'Set PR Title Variable'
+- script: |
+    echo "Checking PR title and commit messages..."
+    PR_TITLE=$(git log --format=%s -n 1 $BUILD_SOURCEVERSION)
+    echo "PR Title: $PR_TITLE"
 
-- job: XcodeBuild
-  displayName: 'Xcode Build and Test'
-  pool:
-    vmImage: 'macOS-latest'
-  dependsOn: PrepareBuild
-  steps:
+    # Add logic to set a variable with the PR title or commit messages
+    echo "##vso[task.setvariable variable=PR_TITLE]$PR_TITLE"
+  displayName: 'Set PR Title Variable'
+
 - task: Xcode@5
   displayName: 'Use this task to build, test, or archive an Xcode workspace on macOS, and optionally package an app.'
   inputs:
@@ -161,7 +150,6 @@ jobs:
 #  displayName: 'Xcode Export'
 
 #- task: Xcode@5
-  
 
 - task: CopyFiles@2
   displayName: 'Copy files from a source folder to a target folder using patterns matching file paths (not folder paths)'
