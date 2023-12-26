@@ -63,17 +63,19 @@ steps:
 #  inputs:
 #    pollingTimeoutSec: '300'
 
-#- task: PowerShell@2
-#  displayName: 'Update the build number'
-#  inputs:
-#    targetType: 'inline'
-#    script: |
-#      cd App && xcrun agvtool new-version -all '$(latestBuildNumber)'
+- task: PowerShell@2
+  displayName: 'Update the build number'
+  inputs:
+    targetType: 'inline'
+    script: |
+      cd App && xcrun agvtool new-version -all '$(latestBuildNumber)'
+
 
 - script: |
-      COMMIT_MESSAGES=$(git log --pretty=%B $(Build.SourceVersion) -1)
-      echo "##vso[task.setvariable variable=RELEASE_NOTES;isOutput=true]$COMMIT_MESSAGES"
+    COMMIT_MESSAGES=$(git log --pretty=%B)
+    echo "##vso[task.setvariable variable=RELEASE_NOTES;isOutput=true]$COMMIT_MESSAGES"
   displayName: 'Extract Commit Messages'
+
 
 - script: |
       echo "Commit Messages: $(COMMIT_MESSAGES)"
