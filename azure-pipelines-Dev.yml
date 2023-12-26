@@ -17,7 +17,7 @@ variables:
   - name: profileUUIDMainApp
     value: 'bd46b52f-681e-4ed5-a885-888feb2fd660'
   - name: latestBuildNumber  
-    value: $[counter('DEV', 100)]
+    value: $[counter('DEV', 129)]
   - name: teamId
     value: 'YE28Y3LX8V'
 
@@ -68,7 +68,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      cd App && xcrun agvtool new-version -all '$(latestBuildNumber)'
+      cd CineRater && xcrun agvtool new-version -all '$(latestBuildNumber)'
 
 
 - script: |
