@@ -118,9 +118,9 @@ steps:
 - task: AppStoreRelease@1
   inputs:
     authType: 'ApiKey'
-    apiKeyId: 'W5T9AN5F9U'
+    apiKeyId: '79QNQLY6YM'
     apiKeyIssuerId: '69a6de8b-02be-47e3-e053-5b8c7c11a4d1'
-    apitoken: '$(appStoreAPIToken)'
+    apitoken: 'LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JR1RBZ0VBTUJNR0J5cUdTTTQ5QWdFR0NDcUdTTTQ5QXdFSEJIa3dkd0lCQVFRZ1B4bnJBaWRlM3FiYmxTbGgKQXFXTW41dGN0Ump3R21nd0xiWC9NU09relVhZ0NnWUlLb1pJemowREFRZWhSQU5DQUFRNlkxNE05WUZ0MUdlVgplMnpMbEJ5ellneTNYN1YwWVloVGYwM1pmMzVHclRSSTBqMXZKYmczZUVQRjdRVzM2cW9BLzlmRVEzZGdaMzZJCkFnajVlV3c2Ci0tLS0tRU5EIFBSSVZBVEUgS0VZLS0tLS0='
     releaseTrack: 'TestFlight'
     appType: 'iOS'
     releaseNotes: '$(Pipeline.Workspace)/release_note.txt'
