@@ -7,93 +7,64 @@ trigger:
   branches:
     include:
     - master
-    - develop
 
 pool:
   vmImage: 'macos-13'
 
 variables:
-- name: appStoreAPIKey
-  value: 'W5T9AN5F9U'
-
-- name: appStoreAPIKeyIssuerID
-  value: '69a6de8b-02be-47e3-e053-5b8c7c11a4d1'
-
-- name: bundleIdMainApp
-  value: 'com.7peakssoftware.cinerater.CineRater'
-  
-- name: profileUUID
-  value: '66674a60-a2cf-40f6-bab6-e371f4e3f04c'
-
-- name: teamId
-  value: 'YE28Y3LX8V'
-  
-- name: configuration
-  value: 'Debug Dev'
-
-- name: scheme
-  value: 'CineRater DEV'
-
-- name: PROJECT_NAME
-  value: 'CineRate'
-
-
+  - group: ios-build-variables
+  - name: bundleIdMainApp
+    value: 'com.7peakssoftware.cinerater.CineRater'
+  - name: profileUUIDMainApp
+    value: '66674a60-a2cf-40f6-bab6-e371f4e3f04c'
+  - name: latestBuildNumber  ----------------------------------------
+    value: $[counter('DEV', 100)]
 
 steps:
-- script: |
-   xcodebuild -showsdks
-   
-   echo "=====================XCode Path ============================"
-   
-   sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer
-   
-   xcodebuild -showsdks
-  displayName: 'Command Line Script'
-
 - task: InstallAppleCertificate@2
   displayName: "Install an Apple certificate required to build on a macOS agent machine"
   inputs:
     certSecureFile: 'CineRaterCertificates.p12'
-    keychain: 'temp'
-    deleteCert: true
-    
+
 - task: InstallAppleProvisioningProfile@1
   displayName: "Install an Apple provisioning profile required to build on a macOS agent machine"
   inputs:
     provisioningProfileLocation: 'secureFiles'
-    provProfileSecureFile: 'CineRater.mobileprovision'
-    removeProfile: true
 
-#- task: PowerShell@2
-#  displayName: 'Unit test & Code coverage'
-#  inputs:
-#    targetType: 'inline'
-#    script: |
-#      fastlane generate_code_coverage
+- task: PowerShell@2
+  displayName: 'Install tools'
+  inputs:
+    targetType: 'inline'
+    script: |
+      brew install rswift && bundle install
 
-#- task: CmdLine@2
-#  inputs:    
-#    script: |
-#      echo "Build iOS app"
-#      cd $(Build.SourcesDirectory)
-#      
-#      /usr/bin/xcodebuild -sdk $(sdkOption) -configuration $(configurationOption) -workspace $(workspaceName) -scheme "$(schemeName)" build -allowProvisioningUpdates CODE_SIGN_STYLE=Manual CODE_SIGN_IDENTITY="$(signingIdentity)" APP_PROFILE="$(APP_PROFILE_ID)"  EXTENSION_PROFILE="$(APP_EXT_PROFILE_ID)"
-#  displayName: 'Xcode Buid'
+- task: PowerShell@2
+  displayName: 'Unit test & Code coverage'
+  inputs:
+    targetType: 'inline'
+    script: |
+      bundle exec fastlane generate_code_coverage
 
-#- task: CmdLine@2
-#  inputs:    
-#    script: |
-#      echo "Archive the iOS app"
-#      cd $(Build.SourcesDirectory)
-#      
-#      /usr/bin/xcodebuild -sdk $(sdkOption) -configuration $(configurationOption) -workspace $(workspaceName) -scheme "$(schemeName)" archive -allowProvisioningUpdates CODE_SIGN_STYLE=Manual CODE_SIGN_IDENTITY="$(signingIdentity)" APP_PROFILE="$(APP_PROFILE_ID)"  EXTENSION_PROFILE="$(APP_EXT_PROFILE_ID)" -archivePath $(ArchivePath)
-#  displayName: 'Xcode Archive'
+- task: SonarCloudPrepare@1
+  displayName: 'Prepare SonarCloud analysis configuration'
+  inputs:
+    SonarCloud: 'CineRater_Service'
+    organization: 'sawpyaeyadanar'
+    scannerMode: 'CLI'
+    configMode: 'file'
 
-#- task: CmdLine@2
-#  inputs:    
-#    script: |
-#      /usr/bin/xcodebuild -exportArchive -archivePath $(ArchivePath) -exportOptionsPlist $(Build.SourcesDirectory)/MyApplication-Info.plist  -exportPath $(ExportIpaPath)
-#  displayName: 'Xcode Export'
+- task: SonarCloudAnalyze@1
+
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
+
+- task: PowerShell@2
+  displayName: 'Update the build number'
+  inputs:
+    targetType: 'inline'
+    script: |
+      cd App && xcrun agvtool new-version -all '$(latestBuildNumber)'
 
 - task: PowerShell@2
   displayName: 'Build exportOptions.plist file'
@@ -102,20 +73,10 @@ steps:
     script: |
       /usr/libexec/PlistBuddy -c "Add :method string app-store" $(Pipeline.Workspace)/exportOptions.plist &&
       /usr/libexec/PlistBuddy -c "Add :provisioningProfiles dict" $(Pipeline.Workspace)/exportOptions.plist &&
-      /usr/libexec/PlistBuddy -c "Add :provisioningProfiles:$(bundleIdMainApp) string $(profileUUID)" $(Pipeline.Workspace)/exportOptions.plist &&
+      /usr/libexec/PlistBuddy -c "Add :provisioningProfiles:$(bundleIdMainApp) string $(profileUUIDMainApp)" $(Pipeline.Workspace)/exportOptions.plist &&
       /usr/libexec/PlistBuddy -c "Add :signingCertificate string $(APPLE_CERTIFICATE_SIGNING_IDENTITY)" $(Pipeline.Workspace)/exportOptions.plist &&
       /usr/libexec/PlistBuddy -c "Add :signingStyle string manual" $(Pipeline.Workspace)/exportOptions.plist &&
-      /usr/libexec/PlistBuddy -c "Add :teamID string $(teamId)" $(Pipeline.Workspace)/exportOptions.plist
-      
-
-- script: |
-    echo "Checking PR title and commit messages..."
-    PR_TITLE=$(git log --format=%s -n 1 $BUILD_SOURCEVERSION)
-    echo "PR Title: $PR_TITLE"
-
-    # Add logic to set a variable with the PR title or commit messages
-    echo "##vso[task.setvariable variable=PR_TITLE]$PR_TITLE"
-  displayName: 'Set PR Title Variable'
+      /usr/libexec/PlistBuddy -c "Add :teamID string $(TEAM_ID)" $(Pipeline.Workspace)/exportOptions.plist
 
 - task: Xcode@5
   displayName: 'Use this task to build, test, or archive an Xcode workspace on macOS, and optionally package an app.'
@@ -127,68 +88,37 @@ steps:
     scheme: 'CineRater DEV'
     xcodeVersion: '15'
     packageApp: true
-    signingOption: 'default'
-    #signingOption: 'manual'
-    #provisioningProfileUuid: '66674a60-a2cf-40f6-bab6-e371f4e3f04c'
-    #provisioningProfileName: 'CineRater.mobileprovision'
-    #archivePath: '$(Pipeline.Workspace)/build/$(scheme).xcarchive'
     exportPath: 'output/Archive'
     exportOptions: 'plist'
     exportOptionsPlist: '$(Pipeline.Workspace)/exportOptions.plist'
+    signingOption: 'default'
     args: '-skipPackagePluginValidation'
-    publishJUnitResults: true
-
-#- task: CmdLine@2
-#  inputs:    
-#    script:
-#      'xcodebuild -project CineRater/CineRater.xcodeproj -scheme "CineRater DEV" -archivePath $(Build.BinariesDirectory).archive.xcarchive archive'
-#  displayName: 'Xcode Archive'
-
-#- task: CmdLine@2
-#  inputs:    
-#    script: |
-#      ‘xcodebuild -exportArchive -archivePath $(Build.BinariesDirectory).archive.xcarchive -exportPath $(Build.BinariesDirectory)/exported -exportOptionsPlist $(plist.secureFilePath)’
-#  displayName: 'Xcode Export'
-
-#- task: Xcode@5
 
 - task: CopyFiles@2
-  displayName: 'Copy files from a source folder to a target folder using patterns matching file paths (not folder paths)'
   inputs:
-      SourceFolder: '$(system.defaultworkingdirectory)'
-      Contents: '**/*.ipa'
-      TargetFolder: '$(build.artifactStagingDirectory)'
-      flattenFolders: true
+    SourceFolder: '$(system.defaultworkingdirectory)'
+    Contents: '**/*.ipa'
+    TargetFolder: '$(build.artifactStagingDirectory)'
+    flattenFolders: true
 
 - task: PublishBuildArtifacts@1
-  displayName: 'Publish build artifacts to Azure Pipelines or a Windows file share'
 
+- task: Bash@3
+  displayName: 'Generate a release note'
+  inputs:
+    targetType: 'inline'
+    script: |
+      CHANGES=`git log -1 --pretty=%B`
+      echo "$CHANGES" > $(Pipeline.Workspace)/release_note.txt
+      
 - task: AppStoreRelease@1
-  displayName: 'Upload the the build to testflight'
   inputs:
     authType: 'ApiKey'
-    apiKeyId: '$(appStoreAPIKey)'
-    apiKeyIssuerId: '$(appStoreAPIKeyIssuerID)'
+    apiKeyId: 'W5T9AN5F9U'
+    apiKeyIssuerId: '69a6de8b-02be-47e3-e053-5b8c7c11a4d1'
     apitoken: '$(appStoreAPIToken)'
     releaseTrack: 'TestFlight'
-    appIdentifier: 'com.7peakssoftware.cinerater.CineRater'
     appType: 'iOS'
-    #ipaPath: '$(Pipeline.Workspace)/*.ipa'
-    ipaPath: '$(build.artifactstagingdirectory)/**/*.ipa'
+    releaseNotes: '$(Pipeline.Workspace)/release_note.txt'
     shouldSkipWaitingForProcessing: true
     shouldSkipSubmission: true
-
-- task: SonarCloudPrepare@1
-  displayName: 'Prepare SonarCloud analysis configuration'
-  inputs:
-    SonarCloud: 'CineRater_Service'
-    organization: 'sawpyaeyadanar'
-    scannerMode: 'CLI'
-    configMode: 'file'
-
-#- task: SonarCloudAnalyze@1
-
-- task: SonarCloudPublish@1
-  displayName: 'Publish SonarCloud Quality Gate result on the Azure Pipelines build result. To be used after the actual analysis. \n This task will poll SonarCloud until the analysis is completed, or until the timeout is reached'
-  inputs:
-    pollingTimeoutSec: '300'
