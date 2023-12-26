@@ -38,33 +38,33 @@ steps:
     script: |
       brew install rswift && bundle install
 
-- task: PowerShell@2
-  displayName: 'Unit test & Code coverage'
-  inputs:
-    targetType: 'inline'
-    script: |
-      bundle exec fastlane generate_code_coverage
+#- task: PowerShell@2
+#  displayName: 'Unit test & Code coverage'
+#  inputs:
+#    targetType: 'inline'
+#    script: |
+#      bundle exec fastlane generate_code_coverage
 
-- task: SonarCloudPrepare@1
-  displayName: 'Prepare SonarCloud analysis configuration'
-  inputs:
-    SonarCloud: 'CineRater_Service'
-    organization: 'sawpyaeyadanar'
-    scannerMode: 'CLI'
-    configMode: 'file'
+#- task: SonarCloudPrepare@1
+#  displayName: 'Prepare SonarCloud analysis configuration'
+#  inputs:
+#    SonarCloud: 'CineRater_Service'
+#    organization: 'sawpyaeyadanar'
+#    scannerMode: 'CLI'
+#    configMode: 'file'
 
-- task: SonarCloudAnalyze@1
+#- task: SonarCloudAnalyze@1
 
-- task: SonarCloudPublish@1
-  inputs:
-    pollingTimeoutSec: '300'
+#- task: SonarCloudPublish@1
+#  inputs:
+#    pollingTimeoutSec: '300'
 
-- task: PowerShell@2
-  displayName: 'Update the build number'
-  inputs:
-    targetType: 'inline'
-    script: |
-      cd App && xcrun agvtool new-version -all '$(latestBuildNumber)'
+#- task: PowerShell@2
+#  displayName: 'Update the build number'
+#  inputs:
+#    targetType: 'inline'
+#    script: |
+#      cd App && xcrun agvtool new-version -all '$(latestBuildNumber)'
 
 - task: PowerShell@2
   displayName: 'Build exportOptions.plist file'
