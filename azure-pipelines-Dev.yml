@@ -29,6 +29,7 @@ steps:
   displayName: "Install an Apple provisioning profile required to build on a macOS agent machine"
   inputs:
     provisioningProfileLocation: 'secureFiles'
+    provProfileSecureFile: 'CineRater.mobileprovision'
 
 - task: PowerShell@2
   displayName: 'Install tools'
