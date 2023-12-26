@@ -136,6 +136,6 @@ steps:
     apitoken: 'LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JR1RBZ0VBTUJNR0J5cUdTTTQ5QWdFR0NDcUdTTTQ5QXdFSEJIa3dkd0lCQVFRZ1B4bnJBaWRlM3FiYmxTbGgKQXFXTW41dGN0Ump3R21nd0xiWC9NU09relVhZ0NnWUlLb1pJemowREFRZWhSQU5DQUFRNlkxNE05WUZ0MUdlVgplMnpMbEJ5ellneTNYN1YwWVloVGYwM1pmMzVHclRSSTBqMXZKYmczZUVQRjdRVzM2cW9BLzlmRVEzZGdaMzZJCkFnajVlV3c2Ci0tLS0tRU5EIFBSSVZBVEUgS0VZLS0tLS0='
     releaseTrack: 'TestFlight'
     appType: 'iOS'
-    releaseNotes: '$(COMMIT_MESSAGES)'
+    releaseNotes: '$(Pipeline.Workspace)/release_note.txt'
     shouldSkipWaitingForProcessing: true
     shouldSkipSubmission: true
