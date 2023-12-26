@@ -71,7 +71,7 @@ steps:
 #      cd CineRater && xcrun agvtool new-version -all '$(latestBuildNumber)'
 
 - script: |
-    COMMIT_MESSAGES=$(git log --pretty=%B develop)
+    COMMIT_MESSAGES=$(git log --pretty=%B)
     echo "##vso[task.setvariable variable=COMMIT_MESSAGES;isOutput=true]$COMMIT_MESSAGES"
   displayName: 'Extract Commit Messages'
 
@@ -80,3 +80,5 @@ steps:
       echo "Commit Messages: $(COMMIT_MESSAGES)"
       # Use COMMIT_MESSAGES in your subsequent tasks
   displayName: 'Display Commit Messages'
+  env:
+    COMMIT_MESSAGES: $(COMMIT_MESSAGES) # Pass the output variable from the Extract Commit Messages task
