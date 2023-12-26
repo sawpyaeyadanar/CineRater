@@ -63,12 +63,12 @@ steps:
 #  inputs:
 #    pollingTimeoutSec: '300'
 
-#- task: PowerShell@2
-#  displayName: 'Update the build number'
-#  inputs:
-#    targetType: 'inline'
-#    script: |
-#      cd CineRater && xcrun agvtool new-version -all '$(latestBuildNumber)'
+- task: PowerShell@2
+  displayName: 'Update the build number'
+  inputs:
+    targetType: 'inline'
+    script: |
+      cd CineRater && xcrun agvtool new-version -all '$(latestBuildNumber)'
 
 - script: |
     COMMIT_MESSAGES=$(git log --pretty=%B)
