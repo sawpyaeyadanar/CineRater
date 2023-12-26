@@ -18,6 +18,8 @@ variables:
     value: '66674a60-a2cf-40f6-bab6-e371f4e3f04c'
   - name: latestBuildNumber  
     value: $[counter('DEV', 100)]
+  - name: teamId
+    value: 'YE28Y3LX8V'
 
 steps:
 - task: InstallAppleCertificate@2
@@ -76,7 +78,7 @@ steps:
       /usr/libexec/PlistBuddy -c "Add :provisioningProfiles:$(bundleIdMainApp) string $(profileUUIDMainApp)" $(Pipeline.Workspace)/exportOptions.plist &&
       /usr/libexec/PlistBuddy -c "Add :signingCertificate string $(APPLE_CERTIFICATE_SIGNING_IDENTITY)" $(Pipeline.Workspace)/exportOptions.plist &&
       /usr/libexec/PlistBuddy -c "Add :signingStyle string manual" $(Pipeline.Workspace)/exportOptions.plist &&
-      /usr/libexec/PlistBuddy -c "Add :teamID string $(TEAM_ID)" $(Pipeline.Workspace)/exportOptions.plist
+      /usr/libexec/PlistBuddy -c "Add :teamID string $(teamId)" $(Pipeline.Workspace)/exportOptions.plist
 
 - task: Xcode@5
   displayName: 'Use this task to build, test, or archive an Xcode workspace on macOS, and optionally package an app.'
