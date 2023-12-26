@@ -12,7 +12,6 @@ pool:
   vmImage: 'macos-13'
 
 variables:
-  - group: ios-build-variables
   - name: bundleIdMainApp
     value: 'com.7peakssoftware.cinerater.CineRater'
   - name: profileUUIDMainApp
