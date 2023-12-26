@@ -15,7 +15,7 @@ variables:
   - name: bundleIdMainApp
     value: 'com.7peakssoftware.cinerater.CineRater'
   - name: profileUUIDMainApp
-    value: '66674a60-a2cf-40f6-bab6-e371f4e3f04c'
+    value: 'bd46b52f-681e-4ed5-a885-888feb2fd660'
   - name: latestBuildNumber  
     value: $[counter('DEV', 100)]
   - name: teamId
@@ -25,7 +25,7 @@ steps:
 - task: InstallAppleCertificate@2
   displayName: "Install an Apple certificate required to build on a macOS agent machine"
   inputs:
-    certSecureFile: 'CineRaterCertificates.p12'
+    certSecureFile: 'YE28Y3LX8V.p12'
 
 - task: InstallAppleProvisioningProfile@1
   displayName: "Install an Apple provisioning profile required to build on a macOS agent machine"
