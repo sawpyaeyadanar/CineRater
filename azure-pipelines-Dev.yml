@@ -70,6 +70,16 @@ steps:
 #    script: |
 #      cd App && xcrun agvtool new-version -all '$(latestBuildNumber)'
 
+- script: |
+      COMMIT_MESSAGES=$(git log --pretty=%B $(Build.SourceVersion) -1)
+      echo "##vso[task.setvariable variable=RELEASE_NOTES;isOutput=true]$COMMIT_MESSAGES"
+  displayName: 'Extract Commit Messages'
+
+- script: |
+      echo "Commit Messages: $(COMMIT_MESSAGES)"
+      # Use COMMIT_MESSAGES in your subsequent tasks
+  displayName: 'Display Commit Messages'
+
 - task: PowerShell@2
   displayName: 'Build exportOptions.plist file'
   inputs:
@@ -123,6 +133,6 @@ steps:
     apitoken: 'LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JR1RBZ0VBTUJNR0J5cUdTTTQ5QWdFR0NDcUdTTTQ5QXdFSEJIa3dkd0lCQVFRZ1B4bnJBaWRlM3FiYmxTbGgKQXFXTW41dGN0Ump3R21nd0xiWC9NU09relVhZ0NnWUlLb1pJemowREFRZWhSQU5DQUFRNlkxNE05WUZ0MUdlVgplMnpMbEJ5ellneTNYN1YwWVloVGYwM1pmMzVHclRSSTBqMXZKYmczZUVQRjdRVzM2cW9BLzlmRVEzZGdaMzZJCkFnajVlV3c2Ci0tLS0tRU5EIFBSSVZBVEUgS0VZLS0tLS0='
     releaseTrack: 'TestFlight'
     appType: 'iOS'
-    releaseNotes: '$(Pipeline.Workspace)/release_note.txt'
+    releaseNotes: '$(RELEASE_NOTES)'
     shouldSkipWaitingForProcessing: true
     shouldSkipSubmission: true
