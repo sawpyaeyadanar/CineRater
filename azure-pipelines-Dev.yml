@@ -125,7 +125,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      CHANGES=`git log -1 --pretty=%B`
+      CHANGES=`git log --pretty=%B`
       echo "$CHANGES" > $(Pipeline.Workspace)/release_note.txt
       
 - task: AppStoreRelease@1
