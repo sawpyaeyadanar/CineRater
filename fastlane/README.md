@@ -47,10 +47,10 @@ Running generate_code_coverage
 
 Uploading to Firebase
 
-### ios export
+### ios build_and_package
 
 ```sh
-[bundle exec] fastlane ios export
+[bundle exec] fastlane ios build_and_package
 ```
 
 Builds and packages app
@@ -71,13 +71,13 @@ Build application and export ipa
 
 Run Swift tests
 
-### ios beta
+### ios production
 
 ```sh
-[bundle exec] fastlane ios beta
+[bundle exec] fastlane ios production
 ```
 
-
+Upload to TestFlight
 
 ----
 
