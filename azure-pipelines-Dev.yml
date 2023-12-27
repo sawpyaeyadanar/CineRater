@@ -17,7 +17,7 @@ variables:
   - name: profileUUIDMainApp
     value: 'bd46b52f-681e-4ed5-a885-888feb2fd660'
   - name: latestBuildNumber  
-    value: $[counter('DEV', 129)]
+    value: $[counter('DEV', 132)]
   - name: teamId
     value: 'YE28Y3LX8V'
 
