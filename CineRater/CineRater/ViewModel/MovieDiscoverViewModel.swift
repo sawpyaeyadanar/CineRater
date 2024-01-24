@@ -31,7 +31,7 @@ class MovieDiscoverViewModel: ObservableObject {
                 self.isFetching =  false
                 switch completion {
                 case .finished:
-                    print("successfully")
+                    print("successfully loadTrending")
                 case .failure(let error):
                     print("umable to fetch \(error)")
                     self.errorMessage = error.message

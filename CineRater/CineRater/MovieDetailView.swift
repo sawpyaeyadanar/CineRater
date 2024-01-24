@@ -32,8 +32,10 @@ struct MovieDetailView: View {
                     })
                     Spacer()
                 }
-                
             }
+          if model.isFetching {
+            ProgressView()
+          }
             ScrollView {
                 VStack(spacing: 12) {
                     Spacer()
@@ -96,27 +98,12 @@ struct MovieDetailView: View {
             
         })
         .toolbar(.hidden, for: .navigationBar)
-        .task { // adds asynchronous task to perform before this view appear
-            
-           // await model.movieCredit(for: movie.id)
-            await model.loadCastProfiles()
+//        .task { // adds asynchronous task to perform before this view appear
+//           model.getMovieCredit(for: movie.id)
+//        }
+        .onAppear {
+          model.getMovieCredit(for: movie.id)
         }
-        
-        /*
-         // Mark:- replace default navigation back
-         .navigationBarTitleDisplayMode(.inline)
-         .navigationBarBackButtonHidden()
-         .toolbar {
-         ToolbarItem(placement: .navigationBarLeading) {
-         Button {
-         dismiss()
-         } label: {
-         Image(systemName: "chevron.left")
-         }
-         
-         }
-         }
-         */
     }
 }
 
